@@ -5,6 +5,9 @@ hero:
   name: "abap-util"
   text: "Utility Functions for ABAP"
   tagline: One small toolbox for ABAP Cloud, S/4 and classic NetWeaver — strings, JSON, XML, RTTI, HTTP, logging and more.
+  image:
+    src: /logo_util.png
+    alt: abap-util
   actions:
     - theme: brand
       text: Get Started
