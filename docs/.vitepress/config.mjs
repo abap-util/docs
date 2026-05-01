@@ -4,7 +4,7 @@ export default defineConfig({
   title: 'abap-util',
   description: 'Utility Functions for ABAP Cloud & Standard ABAP',
   lang: 'en-US',
-  base: '/',
+  base: '/docs/',
   lastUpdated: true,
   cleanUrls: true,
 
