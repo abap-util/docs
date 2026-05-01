@@ -13,7 +13,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: undefined,
+    logo: '/logo_util.png',
 
     nav: [
       { text: 'Guide', link: '/guide/introduction' },
