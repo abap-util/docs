@@ -15,9 +15,6 @@ hero:
     - theme: alt
       text: API Reference
       link: /api/overview
-    - theme: alt
-      text: View on GitHub
-      link: https://github.com/abap-util/abap-util
 
 features:
   - title: One API, Three Worlds
