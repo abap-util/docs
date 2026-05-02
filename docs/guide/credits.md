@@ -17,7 +17,7 @@ These libraries are bundled inside the `src/00/` subpackage so consumers don't h
 
 ## Maintainer
 
-The library is maintained at [github.com/abap-util/abap-util](https://github.com/abap-util/abap-util) (originally [oblomov-dev/abap-util](https://github.com/oblomov-dev/abap-util)).
+The library is maintained at [github.com/abap-util/abap-util](https://github.com/abap-util/abap-util).
 
 ## License
 
