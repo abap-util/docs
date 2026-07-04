@@ -37,11 +37,20 @@ The façade groups helpers by **prefix**. You will rarely need anything outside 
 | `filter_` | Filter / token / range conversion | [Filters](/api/filters) |
 | `itab_` | Internal-table helpers | [Internal Tables](/api/itab) |
 | `msg_` | Message extraction | [Messages](/api/messages) |
+| `text_`, `enum_` | T100 texts & domain fixed values | [Texts & Domains](/api/texts) |
 | `x_` | Exception helpers | [Errors](/api/errors) |
+| `bal_` | Application log queries | [Application Log](/api/bal) |
 | `ui5_` | UI5 message formatting | [UI5 Messages](/api/ui5) |
 | `context_` | Runtime context | [Context](/api/context) |
 | `source_`, `app_` | Source code & app URL helpers | [Source & Apps](/api/source) |
 | `uuid_` | UUID generation | [UUIDs](/api/uuid) |
+| `check_` | Input validation | [Validation](/api/validation) |
+| `data_` | Deep compare & path access | [Data Compare & Access](/api/data) |
+| `cal_` | Calendar & workdays | [Calendar & Workdays](/api/calendar) |
+| `zip_` | ZIP archives | [ZIP Archives](/api/zip) |
+| `lock_` | Enqueue locks | [Locks](/api/locks) |
+| `tr_` | Transport requests | [Transport Requests](/api/transport) |
+| `auth_`, `numrange_`, `changdoc_`, `job_`, `mail_` | System utilities | [System Utilities](/api/system) |
 
 ## Conventions
 

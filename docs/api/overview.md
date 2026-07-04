@@ -17,9 +17,16 @@ Pick a topic to drill into the API reference. Every helper listed here lives on 
 
 ## Internal Tables & Filters
 
-- [Internal Tables](./itab) — corresponding moves, struct extraction, value filter
+- [Internal Tables](./itab) — corresponding moves, struct extraction, sort/slice/paginate, value filter
 - [Filters & Tokens](./filters) — multi-filter structures, SmartFilterBar tokens, SQL where
 - [Ranges](./ranges) — ABAP ranges and SQL builders (`zabaputil_cl_util_range`)
+
+## Data & Validation
+
+- [Validation](./validation) — e-mail, numeric, date, GUID and length checks
+- [Data Compare & Access](./data) — deep equality, field diffs, nested access by path
+- [Calendar & Workdays](./calendar) — weekday checks and workday arithmetic
+- [ZIP Archives](./zip) — `zip_pack`, `zip_unpack`
 
 ## Runtime & Reflection
 
@@ -31,8 +38,10 @@ Pick a topic to drill into the API reference. Every helper listed here lives on 
 ## Messaging & Errors
 
 - [Messages](./messages) — extract messages from structures, exceptions and BAL
+- [Texts & Domains](./texts) — T100 texts, domain fixed values (enum-style)
 - [Errors & Exceptions](./errors) — `zabaputil_cx_util_error` and the `x_*` helpers
 - [Logging](./logging) — `zabaputil_cl_util_log`, fluent log builder
+- [Application Log (BAL)](./bal) — search, read and clean up application logs
 - [UI5 Messages](./ui5) — translate ABAP types into UI5 message types
 
 ## Web & Persistence
@@ -41,3 +50,9 @@ Pick a topic to drill into the API reference. Every helper listed here lives on 
 - [HTTP Handler](./http) — `zabaputil_cl_util_http`, unified request/response wrapper
 - [Persistence](./persistence) — `zabaputil_cl_util_db`, generic key/value store
 - [Context](./context) — current user, tenant, callstack, cloud detection
+
+## Platform & Administration
+
+- [Locks (Enqueue)](./locks) — set, check, release and inspect locks
+- [Transport Requests](./transport) — read, create and manage CTS requests
+- [System Utilities](./system) — authorization, number ranges, change documents, jobs, mail

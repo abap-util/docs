@@ -74,3 +74,67 @@ DATA(lv_csv) = zabaputil_cl_util=>c_join(
 ```
 
 If `sep` is omitted the parts are concatenated without a separator.
+
+## `c_pad_left`
+
+Pads a value on the left up to `len` characters. Default pad character is `0` — handy for leading-zero numbers.
+
+```abap
+DATA(lv_x) = zabaputil_cl_util=>c_pad_left( val = `42` len = 5 ).            " => '00042'
+DATA(lv_y) = zabaputil_cl_util=>c_pad_left( val = `42` len = 5 pad = ' ' ).  " => '   42'
+```
+
+## `c_pad_right`
+
+Pads a value on the right up to `len` characters. Default pad character is a space.
+
+```abap
+DATA(lv_x) = zabaputil_cl_util=>c_pad_right( val = `AB` len = 5 pad = '.' ). " => 'AB...'
+```
+
+## `c_truncate`
+
+Shortens a string to at most `max` characters, appending an ellipsis when it was cut. The ellipsis counts toward `max`.
+
+```abap
+DATA(lv_x) = zabaputil_cl_util=>c_truncate( val = `Hello World` max = 8 ).   " => 'Hello...'
+DATA(lv_y) = zabaputil_cl_util=>c_truncate( val = `Hi` max = 8 ).            " => 'Hi' (unchanged)
+```
+
+Pass an empty `ellipsis` to truncate without a marker.
+
+## `c_substring_safe`
+
+`substring( )` without the short dump: offset/length out of bounds simply clamp to the available characters.
+
+```abap
+DATA(lv_x) = zabaputil_cl_util=>c_substring_safe( val = `abc` off = 1 len = 99 ). " => 'bc'
+DATA(lv_y) = zabaputil_cl_util=>c_substring_safe( val = `abc` off = 9 ).          " => ''
+```
+
+`len = -1` (default) means "to the end of the string".
+
+## `c_replace_all`
+
+Replaces every occurrence of `sub` with `new_val`.
+
+```abap
+DATA(lv_x) = zabaputil_cl_util=>c_replace_all(
+    val     = `a-b-c`
+    sub     = `-`
+    new_val = `_` ). " => 'a_b_c'
+```
+
+## `c_is_blank`
+
+Returns `abap_true` when the value is empty or contains only whitespace.
+
+```abap
+IF zabaputil_cl_util=>c_is_blank( lv_input ) = abap_true.
+  " nothing entered
+ENDIF.
+```
+
+## See also
+
+- [Validation](./validation) — e-mail, GUID, date and length checks
