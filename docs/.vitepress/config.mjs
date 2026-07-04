@@ -96,6 +96,16 @@ export default defineConfig({
           ]
         },
         {
+          text: 'Data & Validation',
+          collapsed: false,
+          items: [
+            { text: 'Validation', link: '/api/validation' },
+            { text: 'Data Compare & Access', link: '/api/data' },
+            { text: 'Calendar & Workdays', link: '/api/calendar' },
+            { text: 'ZIP Archives', link: '/api/zip' }
+          ]
+        },
+        {
           text: 'Runtime & Reflection',
           collapsed: false,
           items: [
@@ -110,8 +120,10 @@ export default defineConfig({
           collapsed: false,
           items: [
             { text: 'Messages', link: '/api/messages' },
+            { text: 'Texts & Domains', link: '/api/texts' },
             { text: 'Errors & Exceptions', link: '/api/errors' },
             { text: 'Logging', link: '/api/logging' },
+            { text: 'Application Log (BAL)', link: '/api/bal' },
             { text: 'UI5 Messages', link: '/api/ui5' }
           ]
         },
@@ -123,6 +135,15 @@ export default defineConfig({
             { text: 'HTTP Handler', link: '/api/http' },
             { text: 'Persistence', link: '/api/persistence' },
             { text: 'Context', link: '/api/context' }
+          ]
+        },
+        {
+          text: 'Platform & Administration',
+          collapsed: false,
+          items: [
+            { text: 'Locks (Enqueue)', link: '/api/locks' },
+            { text: 'Transport Requests', link: '/api/transport' },
+            { text: 'System Utilities', link: '/api/system' }
           ]
         }
       ]

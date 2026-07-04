@@ -65,3 +65,20 @@ DATA(lv_ts) = zabaputil_cl_util=>time_get_stampl_by_date_time(
     date = sy-datum
     time = sy-uzeit ).
 ```
+
+## Stopwatch: `time_measure_start` / `time_measure_stop`
+
+Measure elapsed runtime in **milliseconds** without juggling timestamps yourself.
+
+```abap
+DATA(lv_start) = zabaputil_cl_util=>time_measure_start( ).
+
+" ... do work ...
+
+DATA(lv_ms) = zabaputil_cl_util=>time_measure_stop( lv_start ). " elapsed milliseconds
+```
+
+## See also
+
+- [Calendar & Workdays](./calendar) — weekday checks and workday arithmetic
+- [Conversion & Encoding](./conversion) — date ↔ string formatting

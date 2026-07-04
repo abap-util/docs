@@ -4,7 +4,7 @@ layout: home
 hero:
   name: "abap-util"
   text: "Utility Functions for ABAP"
-  tagline: One small toolbox for ABAP Cloud, S/4 and classic NetWeaver — strings, JSON, XML, RTTI, HTTP, logging and more.
+  tagline: One small toolbox for ABAP Cloud, S/4 and classic NetWeaver — strings, JSON, XML, RTTI, HTTP, logging, locks, calendar, transports and more.
   image:
     src: /logo_util.png
     alt: abap-util
@@ -28,5 +28,11 @@ features:
   - title: HTTP Handler Abstraction
     details: A single object that exposes the same methods for on-premise <code>if_http_server</code> and ABAP Cloud <code>if_web_http_*</code>.
   - title: Logging & Messaging
-    details: Fluent log builder with CSV/XLSX export, BAL persistence and a unified message extractor that understands <code>BAPIRET2</code>, exceptions and structures.
+    details: Fluent log builder with CSV/XLSX export, BAL persistence and search, plus a unified message extractor that understands <code>BAPIRET2</code>, exceptions and structures.
+  - title: Validation & Data Tools
+    details: E-mail/GUID/date checks, deep equality and field-level diffs, nested access by path, dynamic sorting and pagination of internal tables.
+  - title: Platform Helpers
+    details: Enqueue locks with retry, workday arithmetic, ZIP archives, transport requests, application log housekeeping, background jobs and e-mail.
+  - title: Battle-Tested on Three Codelines
+    details: Every commit is built and unit-tested against ABAP Cloud, Standard ABAP and a 7.02 downport via GitHub Actions.
 ---

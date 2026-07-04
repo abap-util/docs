@@ -75,6 +75,24 @@ DATA(lv_iso) = zabaputil_cl_util=>conv_date_to_string(
     format = 'YYYY-MM-DD' ).
 ```
 
+## `conv_number_to_string`
+
+Formats any numeric value as a string, optionally with fixed decimals and a thousands separator.
+
+```abap
+DATA(lv_a) = zabaputil_cl_util=>conv_number_to_string( val = '1234.5' ).                     " => '1234.5'
+DATA(lv_b) = zabaputil_cl_util=>conv_number_to_string( val = '1234.5' decimals = 2 ).        " => '1234.50'
+DATA(lv_c) = zabaputil_cl_util=>conv_number_to_string( val = 1234567 sep_thousands = ',' ).  " => '1,234,567'
+```
+
+## `conv_string_to_number`
+
+Parses a string into a `decfloat34`, tolerating spaces and common separators.
+
+```abap
+DATA(lv_num) = zabaputil_cl_util=>conv_string_to_number( ` 1.234,56 ` ).
+```
+
 ## `conv_get_as_data_ref`
 
 Return a generic `REF TO data` pointing at the given value (handy for dynamic calls).

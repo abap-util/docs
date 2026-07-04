@@ -43,6 +43,65 @@ DATA(lt_nv) = zabaputil_cl_util=>itab_get_by_struc( ls_flight ).
 " => [(n='CARRID' v='LH'), (n='CONNID' v='0400'), ...]
 ```
 
+## `itab_sort_by`
+
+Sorts a standard table by a field name known only at runtime.
+
+```abap
+zabaputil_cl_util=>itab_sort_by(
+    EXPORTING fieldname  = 'PRICE'
+              descending = abap_true
+    CHANGING  tab        = lt_flights ).
+```
+
+## `itab_slice`
+
+Returns rows `from`..`to` as a new table (data reference). `to = 0` means "to the end".
+
+```abap
+DATA(lr_top10) = zabaputil_cl_util=>itab_slice(
+    tab  = lt_flights
+    from = 1
+    to   = 10 ).
+```
+
+## `itab_paginate`
+
+Slices a table into pages and reports totals — built for list UIs and APIs with paging.
+
+```abap
+zabaputil_cl_util=>itab_paginate(
+    EXPORTING tab         = lt_flights
+              page        = 2
+              page_size   = 20
+    IMPORTING result      = lr_page       " REF TO data with the page rows
+              total_count = lv_count
+              total_pages = lv_pages ).
+```
+
+## `itab_count_by`
+
+Counts rows grouped by a field, returned as a name/value table.
+
+```abap
+DATA(lt_counts) = zabaputil_cl_util=>itab_count_by(
+    tab       = lt_flights
+    fieldname = 'CARRID' ).
+" => [(n='LH' v='42'), (n='AA' v='17'), ...]
+```
+
+## `itab_to_json` / `itab_from_json`
+
+Shortcuts for serializing a table to JSON and back — same engine as [`json_stringify` / `json_parse`](./json).
+
+```abap
+DATA(lv_json) = zabaputil_cl_util=>itab_to_json( lt_flights ).
+
+zabaputil_cl_util=>itab_from_json(
+    EXPORTING val  = lv_json
+    CHANGING  data = lt_flights ).
+```
+
 ## See also
 
 - [Filters & Tokens](./filters)
