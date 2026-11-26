@@ -7,7 +7,7 @@ CSV is supported through two symmetric helpers on the façade.
 Render any internal table to a CSV string. The first row contains the column headers (uppercase component names).
 
 ```abap
-DATA(lv_csv) = zabaputil_cl_util=>itab_get_csv_by_itab( lt_flights ).
+DATA(lv_csv) = zabaputil_cl_util_context=>itab_get_csv_by_itab( lt_flights ).
 ```
 
 ## `itab_get_itab_by_csv`
@@ -15,7 +15,7 @@ DATA(lv_csv) = zabaputil_cl_util=>itab_get_csv_by_itab( lt_flights ).
 Parse a CSV string into a freshly created internal table. The result is returned as a generic `REF TO data`.
 
 ```abap
-DATA(lr_itab) = zabaputil_cl_util=>itab_get_itab_by_csv( lv_csv ).
+DATA(lr_itab) = zabaputil_cl_util_context=>itab_get_itab_by_csv( lv_csv ).
 ASSIGN lr_itab->* TO FIELD-SYMBOL(<lt>).
 ```
 

@@ -7,7 +7,7 @@ Helpers for working with `timestampl` (long timestamps) and date/time pairs with
 Returns the current long timestamp.
 
 ```abap
-DATA(lv_now) = zabaputil_cl_util=>time_get_timestampl( ).
+DATA(lv_now) = zabaputil_cl_util_context=>time_get_timestampl( ).
 ```
 
 ## `time_add_seconds`
@@ -15,7 +15,7 @@ DATA(lv_now) = zabaputil_cl_util=>time_get_timestampl( ).
 Adds N seconds to a timestamp.
 
 ```abap
-DATA(lv_later) = zabaputil_cl_util=>time_add_seconds(
+DATA(lv_later) = zabaputil_cl_util_context=>time_add_seconds(
     time    = lv_now
     seconds = 60 ).
 ```
@@ -25,7 +25,7 @@ DATA(lv_later) = zabaputil_cl_util=>time_add_seconds(
 Subtracts N seconds from a timestamp.
 
 ```abap
-DATA(lv_hour_ago) = zabaputil_cl_util=>time_subtract_seconds(
+DATA(lv_hour_ago) = zabaputil_cl_util_context=>time_subtract_seconds(
     time    = lv_now
     seconds = 3600 ).
 ```
@@ -35,7 +35,7 @@ DATA(lv_hour_ago) = zabaputil_cl_util=>time_subtract_seconds(
 Returns the difference between two timestamps as integer seconds.
 
 ```abap
-DATA(lv_dt) = zabaputil_cl_util=>time_diff_seconds(
+DATA(lv_dt) = zabaputil_cl_util_context=>time_diff_seconds(
     time_from = lv_start
     time_to   = lv_end ).
 ```
@@ -45,7 +45,7 @@ DATA(lv_dt) = zabaputil_cl_util=>time_diff_seconds(
 Extracts the date part of a long timestamp.
 
 ```abap
-DATA(lv_date) = zabaputil_cl_util=>time_get_date_by_stampl( lv_now ).
+DATA(lv_date) = zabaputil_cl_util_context=>time_get_date_by_stampl( lv_now ).
 ```
 
 ## `time_get_time_by_stampl`
@@ -53,7 +53,7 @@ DATA(lv_date) = zabaputil_cl_util=>time_get_date_by_stampl( lv_now ).
 Extracts the time part of a long timestamp.
 
 ```abap
-DATA(lv_time) = zabaputil_cl_util=>time_get_time_by_stampl( lv_now ).
+DATA(lv_time) = zabaputil_cl_util_context=>time_get_time_by_stampl( lv_now ).
 ```
 
 ## `time_get_stampl_by_date_time`
@@ -61,7 +61,7 @@ DATA(lv_time) = zabaputil_cl_util=>time_get_time_by_stampl( lv_now ).
 Combines a date and a time into a long timestamp.
 
 ```abap
-DATA(lv_ts) = zabaputil_cl_util=>time_get_stampl_by_date_time(
+DATA(lv_ts) = zabaputil_cl_util_context=>time_get_stampl_by_date_time(
     date = sy-datum
     time = sy-uzeit ).
 ```
@@ -71,11 +71,11 @@ DATA(lv_ts) = zabaputil_cl_util=>time_get_stampl_by_date_time(
 Measure elapsed runtime in **milliseconds** without juggling timestamps yourself.
 
 ```abap
-DATA(lv_start) = zabaputil_cl_util=>time_measure_start( ).
+DATA(lv_start) = zabaputil_cl_util_context=>time_measure_start( ).
 
 " ... do work ...
 
-DATA(lv_ms) = zabaputil_cl_util=>time_measure_stop( lv_start ). " elapsed milliseconds
+DATA(lv_ms) = zabaputil_cl_util_context=>time_measure_stop( lv_start ). " elapsed milliseconds
 ```
 
 ## See also

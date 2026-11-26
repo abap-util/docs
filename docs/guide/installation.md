@@ -26,16 +26,15 @@ After the pull you should see the following top-level objects in your package:
 
 | Object | Type | Purpose |
 | --- | --- | --- |
-| `ZABAPUTIL_CL_UTIL` | Class | Main façade |
+| `ZABAPUTIL_CL_UTIL_CONTEXT` | Class | Main façade |
 | `ZABAPUTIL_CL_UTIL_HTTP` | Class | HTTP handler abstraction |
+| `ZABAPUTIL_CL_UTIL_DB` | Class | Key/value persistence |
 | `ZABAPUTIL_CL_UTIL_LOG` | Class | Fluent log builder |
 | `ZABAPUTIL_CL_UTIL_MSG` | Class | Message extractor |
 | `ZABAPUTIL_CL_UTIL_RANGE` | Class | Range/SQL builder |
 | `ZABAPUTIL_CL_UTIL_XML` | Class | XML builder |
-| `ZABAPUTIL_CL_UTIL_JSON_FLTR` | Class | JSON filter helpers |
-| `ZABAPUTIL_CX_UTIL_ERROR` | Class | Custom exception |
-| `ZABAPUTIL_CL_UTIL_API` / `_API_C` / `_API_S` | Classes | Release-specific API adapters |
-| `ZABAPUTIL_CL_UTIL_DB` / `ZABAPUTIL_CL_UTIL_EXT` | Classes | Persistence + extended utilities (non-cloud) |
+| `ZABAPUTIL_CL_HTTP` | Class | HTTP helper |
+| `ZABAPUTIL_CX_UTIL_ERROR` / `ZABAPUTIL_CX_ERROR` | Classes | Exceptions |
 | `ZABAPUTIL_T_91` | Table | Persistence table for [Persistence API](/api/persistence) |
 
 ## Install via abapGit (ABAP Cloud)
@@ -48,14 +47,14 @@ ABAP Cloud requires a slightly different flow:
 4. Choose an ABAP Cloud package (must be assigned to a software component).
 5. Pull.
 
-The `01/` and `02/` subpackages contain release-conditional code; abapGit deploys only the objects that are valid in your tenant.
+The same objects are deployed on ABAP Cloud; release differences are handled inside the methods. The `00/` subpackage holds the bundled ajson and S-RTTI classes.
 
 ## Verify the installation
 
 Run a quick smoke test in any ABAP report or class method:
 
 ```abap
-DATA(lv_uuid) = zabaputil_cl_util=>uuid_get_c32( ).
+DATA(lv_uuid) = zabaputil_cl_util_context=>uuid_get_c32( ).
 WRITE: / lv_uuid.
 ```
 

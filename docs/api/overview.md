@@ -1,6 +1,6 @@
 # API Overview
 
-Pick a topic to drill into the API reference. Every helper listed here lives on the façade `zabaputil_cl_util` unless stated otherwise.
+Pick a topic to drill into the API reference. Every helper listed here lives on the façade `zabaputil_cl_util_context` unless stated otherwise.
 
 ## Strings & Conversion
 

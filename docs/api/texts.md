@@ -7,7 +7,7 @@ Resolve T100 message texts and domain fixed values (enum-style) at runtime.
 Resolves a T100 message with up to four placeholders in a given language (defaults to `sy-langu`).
 
 ```abap
-DATA(lv_text) = zabaputil_cl_util=>text_get(
+DATA(lv_text) = zabaputil_cl_util_context=>text_get(
     msgid = `ZMY_MESSAGES`
     msgno = `001`
     v1    = `42` ).
@@ -19,7 +19,7 @@ DATA(lv_text) = zabaputil_cl_util=>text_get(
 Translates a domain value into its fixed-value description.
 
 ```abap
-DATA(lv_text) = zabaputil_cl_util=>enum_to_text(
+DATA(lv_text) = zabaputil_cl_util_context=>enum_to_text(
     domain = `ZSTATUS`
     value  = `A` ). " => 'Active'
 ```
@@ -31,7 +31,7 @@ Pass `langu` to resolve in a specific language.
 Returns all fixed values of a domain as a name/value table — ideal for building dropdowns.
 
 ```abap
-DATA(lt_values) = zabaputil_cl_util=>enum_get_all( domain = `ZSTATUS` ).
+DATA(lt_values) = zabaputil_cl_util_context=>enum_get_all( domain = `ZSTATUS` ).
 " => [(n='A' v='Active'), (n='I' v='Inactive'), ...]
 ```
 

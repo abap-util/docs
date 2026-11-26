@@ -6,40 +6,37 @@
 
 ```
 src/
-├── zabaputil_cl_util              ← main façade (static helpers)
-├── zabaputil_cl_util_http         ← HTTP handler abstraction
+├── zabaputil_cl_util_context      ← main façade (static helpers)
+├── zabaputil_cl_util_http         ← HTTP handler abstraction + HTTP client
+├── zabaputil_cl_util_db           ← key/value persistence (table zabaputil_t_91)
 ├── zabaputil_cl_util_log          ← fluent log builder
 ├── zabaputil_cl_util_msg          ← message extractor
 ├── zabaputil_cl_util_range        ← range / SQL builder
 ├── zabaputil_cl_util_xml          ← fluent XML builder
-├── zabaputil_cl_util_json_fltr    ← JSON filters (used by ajson)
+├── zabaputil_cl_http              ← HTTP helper
 ├── zabaputil_cx_util_error        ← custom exception
-├── 00/                            ← embedded ajson + S-RTTI
-├── 01/                            ← classic-ABAP-only helpers (ext, db)
-└── 02/
-    ├── zabaputil_cl_util_api      ← release-neutral API adapter
-    ├── zabaputil_cl_util_api_c    ← ABAP Cloud variant
-    └── zabaputil_cl_util_api_s    ← Standard ABAP variant
+├── zabaputil_cx_error             ← no-check exception
+└── 00/
+    ├── 01/                        ← embedded ajson (mirrored from upstream)
+    └── 02/                        ← embedded S-RTTI (mirrored from upstream)
 ```
-
-The numbered subpackages (`00`, `01`, `02`) reflect the build order and the release scope.
 
 ## Façade Pattern
 
-99 % of consumers only ever call methods on `zabaputil_cl_util`. Internally that class delegates to the right adapter for the current release:
+99 % of consumers only ever call methods on `zabaputil_cl_util_context`. There are no separate adapter classes: release-specific behavior is branched inside the methods via `check_abap_cloud( )` and dynamic calls, so the same class activates on ABAP Cloud, Standard ABAP and (via the `702` branch) NetWeaver 7.02.
 
 ```mermaid
 flowchart TD
-  caller[Your code] --> facade[zabaputil_cl_util]
-  facade --> api[zabaputil_cl_util_api]
-  api -->|Cloud| api_c[zabaputil_cl_util_api_c]
-  api -->|Standard| api_s[zabaputil_cl_util_api_s]
-  facade --> log[zabaputil_cl_util_log]
-  facade --> http[zabaputil_cl_util_http]
-  facade --> ext[zabaputil_cl_util_ext]
+  caller[Your code] --> facade[zabaputil_cl_util_context]
+  caller --> log[zabaputil_cl_util_log]
+  caller --> http[zabaputil_cl_util_http]
+  log --> facade
+  http --> facade
+  facade -->|check_abap_cloud = true| cloud[Released ABAP Cloud APIs]
+  facade -->|check_abap_cloud = false| std[Standard ABAP APIs]
 ```
 
-`zabaputil_cl_util_api_c` and `_api_s` expose the **same** public methods. `zabaputil_cl_util_api` decides at activation time which one is reachable on the current release. Your calling code stays untouched.
+Your calling code stays untouched.
 
 ## Bundled Dependencies
 
@@ -65,11 +62,10 @@ The `auto_downport` workflow uses [abaplint](https://abaplint.org) to rewrite mo
 
 ## Embedding into another product
 
-If you maintain your own framework and want to ship `abap-util` inline without colliding with the `zabaputil_` prefix, the `rename` npm script demonstrates how to bulk-rename via abaplint:
+If you maintain your own framework and want to ship `abap-util` inline without colliding with the `zabaputil_` prefix, copy the classes you need and rename them into your own namespace. To install the whole library under another name, run the [`build_rename`](https://github.com/abap-util/abap-util/actions/workflows/build_rename.yaml) workflow, which pushes a renamed copy to the branch `rename_<name>`. The `rename` npm script checks that every object still lints under a longer prefix:
 
 ```bash
-npm run mirror   # clones an example consumer (abap2UI5)
-npm run rename   # rewrites prefixes & copies sources
+npm run rename
 ```
 
-The mechanism is the same one the upstream project [abap2UI5](https://github.com/abap2UI5/abap2UI5) uses to embed this library.
+The upstream project [abap2UI5](https://github.com/abap2UI5/abap2UI5) embeds renamed copies of `zabaputil_cl_util_context`, `zabaputil_cl_util_http` and `zabaputil_cx_error` this way.

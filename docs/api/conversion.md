@@ -7,7 +7,7 @@ Helpers for converting between binary, text and date representations.
 UTF-8 encode a `string` to `xstring`.
 
 ```abap
-DATA(lv_x) = zabaputil_cl_util=>conv_get_xstring_by_string( 'Hello' ).
+DATA(lv_x) = zabaputil_cl_util_context=>conv_get_xstring_by_string( 'Hello' ).
 ```
 
 ## `conv_get_string_by_xstring`
@@ -15,7 +15,7 @@ DATA(lv_x) = zabaputil_cl_util=>conv_get_xstring_by_string( 'Hello' ).
 Decode an `xstring` (UTF-8) back into a `string`.
 
 ```abap
-DATA(lv_text) = zabaputil_cl_util=>conv_get_string_by_xstring( lv_xstring ).
+DATA(lv_text) = zabaputil_cl_util_context=>conv_get_string_by_xstring( lv_xstring ).
 ```
 
 ## `conv_encode_x_base64`
@@ -23,7 +23,7 @@ DATA(lv_text) = zabaputil_cl_util=>conv_get_string_by_xstring( lv_xstring ).
 Base64-encode an `xstring` to a `string`.
 
 ```abap
-DATA(lv_b64) = zabaputil_cl_util=>conv_encode_x_base64( lv_xstring ).
+DATA(lv_b64) = zabaputil_cl_util_context=>conv_encode_x_base64( lv_xstring ).
 ```
 
 ## `conv_decode_x_base64`
@@ -31,7 +31,7 @@ DATA(lv_b64) = zabaputil_cl_util=>conv_encode_x_base64( lv_xstring ).
 Decode a Base64 `string` back to an `xstring`.
 
 ```abap
-DATA(lv_x) = zabaputil_cl_util=>conv_decode_x_base64( lv_b64 ).
+DATA(lv_x) = zabaputil_cl_util_context=>conv_decode_x_base64( lv_b64 ).
 ```
 
 ## `conv_get_xlsx_by_itab`
@@ -39,7 +39,7 @@ DATA(lv_x) = zabaputil_cl_util=>conv_decode_x_base64( lv_b64 ).
 Render any internal table to an XLSX `xstring` (uses the platform's spreadsheet API).
 
 ```abap
-DATA(lv_xlsx) = zabaputil_cl_util=>conv_get_xlsx_by_itab( lt_flights ).
+DATA(lv_xlsx) = zabaputil_cl_util_context=>conv_get_xlsx_by_itab( lt_flights ).
 ```
 
 See also [XLSX / Excel](./xlsx).
@@ -50,7 +50,7 @@ Parse an XLSX `xstring` back into an internal table (returned as a typed data re
 
 ```abap
 DATA lr_data TYPE REF TO data.
-zabaputil_cl_util=>conv_get_itab_by_xlsx(
+zabaputil_cl_util_context=>conv_get_itab_by_xlsx(
     EXPORTING val    = lv_xlsx
     IMPORTING result = lr_data ).
 ```
@@ -60,7 +60,7 @@ zabaputil_cl_util=>conv_get_itab_by_xlsx(
 Parse a date string into ABAP `d`.
 
 ```abap
-DATA(lv_date) = zabaputil_cl_util=>conv_string_to_date(
+DATA(lv_date) = zabaputil_cl_util_context=>conv_string_to_date(
     val    = '2025-12-31'
     format = 'YYYY-MM-DD' ). " default format
 ```
@@ -70,7 +70,7 @@ DATA(lv_date) = zabaputil_cl_util=>conv_string_to_date(
 Render an ABAP `d` to a date string.
 
 ```abap
-DATA(lv_iso) = zabaputil_cl_util=>conv_date_to_string(
+DATA(lv_iso) = zabaputil_cl_util_context=>conv_date_to_string(
     val    = sy-datum
     format = 'YYYY-MM-DD' ).
 ```
@@ -80,9 +80,9 @@ DATA(lv_iso) = zabaputil_cl_util=>conv_date_to_string(
 Formats any numeric value as a string, optionally with fixed decimals and a thousands separator.
 
 ```abap
-DATA(lv_a) = zabaputil_cl_util=>conv_number_to_string( val = '1234.5' ).                     " => '1234.5'
-DATA(lv_b) = zabaputil_cl_util=>conv_number_to_string( val = '1234.5' decimals = 2 ).        " => '1234.50'
-DATA(lv_c) = zabaputil_cl_util=>conv_number_to_string( val = 1234567 sep_thousands = ',' ).  " => '1,234,567'
+DATA(lv_a) = zabaputil_cl_util_context=>conv_number_to_string( val = '1234.5' ).                     " => '1234.5'
+DATA(lv_b) = zabaputil_cl_util_context=>conv_number_to_string( val = '1234.5' decimals = 2 ).        " => '1234.50'
+DATA(lv_c) = zabaputil_cl_util_context=>conv_number_to_string( val = 1234567 sep_thousands = ',' ).  " => '1,234,567'
 ```
 
 ## `conv_string_to_number`
@@ -90,7 +90,7 @@ DATA(lv_c) = zabaputil_cl_util=>conv_number_to_string( val = 1234567 sep_thousan
 Parses a string into a `decfloat34`, tolerating spaces and common separators.
 
 ```abap
-DATA(lv_num) = zabaputil_cl_util=>conv_string_to_number( ` 1.234,56 ` ).
+DATA(lv_num) = zabaputil_cl_util_context=>conv_string_to_number( ` 1.234,56 ` ).
 ```
 
 ## `conv_get_as_data_ref`
@@ -98,7 +98,7 @@ DATA(lv_num) = zabaputil_cl_util=>conv_string_to_number( ` 1.234,56 ` ).
 Return a generic `REF TO data` pointing at the given value (handy for dynamic calls).
 
 ```abap
-DATA(lr_ref) = zabaputil_cl_util=>conv_get_as_data_ref( ls_flight ).
+DATA(lr_ref) = zabaputil_cl_util_context=>conv_get_as_data_ref( ls_flight ).
 ```
 
 ## `conv_copy_ref_data`
@@ -106,5 +106,5 @@ DATA(lr_ref) = zabaputil_cl_util=>conv_get_as_data_ref( ls_flight ).
 Create an independent copy of any value as a fresh `REF TO data`.
 
 ```abap
-DATA(lr_copy) = zabaputil_cl_util=>conv_copy_ref_data( from = ls_source ).
+DATA(lr_copy) = zabaputil_cl_util_context=>conv_copy_ref_data( from = ls_source ).
 ```

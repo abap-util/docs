@@ -50,7 +50,7 @@ TYPES: BEGIN OF ty_s_filter_multi,
 Build a `ty_t_filter_multi` from any structure: every component becomes one entry.
 
 ```abap
-DATA(lt_filter) = zabaputil_cl_util=>filter_get_multi_by_data( ls_search ).
+DATA(lt_filter) = zabaputil_cl_util_context=>filter_get_multi_by_data( ls_search ).
 ```
 
 ## `filter_get_data_by_multi`
@@ -62,7 +62,7 @@ The inverse — flatten a multi-filter back into a flat structure.
 Convert a single token (or a token table) into a range entry. The token text is parsed with the SAP standard pattern (`!=`, `<`, `<=`, `*…`, etc.).
 
 ```abap
-DATA(ls_range) = zabaputil_cl_util=>filter_get_range_by_token( '!=ABC' ).
+DATA(ls_range) = zabaputil_cl_util_context=>filter_get_range_by_token( '!=ABC' ).
 " => ( sign='I' option='NE' low='ABC' )
 ```
 
@@ -79,7 +79,7 @@ Returns the operator mapping table used internally — handy for UI5 front-ends 
 Compares the current filter against a snapshot and updates the `t_token_added` / `t_token_removed` deltas in place.
 
 ```abap
-DATA(lt_updated) = zabaputil_cl_util=>filter_update_tokens(
+DATA(lt_updated) = zabaputil_cl_util_context=>filter_update_tokens(
     val  = lt_current
     name = 'CARRID' ).
 ```
@@ -89,7 +89,7 @@ DATA(lt_updated) = zabaputil_cl_util=>filter_update_tokens(
 Turns a `ty_t_filter_multi` into a single SQL `WHERE` fragment. Use with [Ranges](./ranges) for full-blown dynamic SQL.
 
 ```abap
-DATA(lv_where) = zabaputil_cl_util=>filter_get_sql_where( lt_filter ).
+DATA(lv_where) = zabaputil_cl_util_context=>filter_get_sql_where( lt_filter ).
 " => '( CARRID = ''LH'' ) AND ( PRICE > 100 )'
 ```
 
@@ -102,7 +102,7 @@ Parses a free-text SQL hint (e.g. `select * from sflight where carrid = 'LH'`) a
 Apply a filter to an internal table directly:
 
 ```abap
-zabaputil_cl_util=>filter_itab(
+zabaputil_cl_util_context=>filter_itab(
     EXPORTING filter = lt_filter
     CHANGING  val    = lt_flights ).
 ```

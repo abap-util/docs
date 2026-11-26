@@ -15,6 +15,7 @@ TYPES: BEGIN OF ty_s_msg,
          v3         TYPE string,
          v4         TYPE string,
          timestampl TYPE timestampl,
+         t_meta     TYPE ty_t_name_value,
        END OF ty_s_msg,
        ty_t_msg TYPE STANDARD TABLE OF ty_s_msg WITH EMPTY KEY.
 ```
@@ -24,7 +25,7 @@ TYPES: BEGIN OF ty_s_msg,
 Extract a **single** message structure from any input.
 
 ```abap
-DATA(ls_msg) = zabaputil_cl_util=>msg_get( ls_bapiret ).
+DATA(ls_msg) = zabaputil_cl_util_context=>msg_get( ls_bapiret ).
 ```
 
 ## `msg_get_t`
@@ -38,7 +39,7 @@ Extract **all** messages as a table. The most useful entry point — works for:
 - references implementing `ZIF_LOGGER` (the popular logger interface)
 
 ```abap
-DATA(lt_msg) = zabaputil_cl_util=>msg_get_t( lo_bali ).
+DATA(lt_msg) = zabaputil_cl_util_context=>msg_get_t( lo_bali ).
 ```
 
 ## `msg_get_by_msg`
@@ -46,7 +47,7 @@ DATA(lt_msg) = zabaputil_cl_util=>msg_get_t( lo_bali ).
 Build one `ty_s_msg` from raw message components. Optional placeholders `v1..v4` are passed through to `MESSAGE` so the text comes back resolved.
 
 ```abap
-DATA(ls_msg) = zabaputil_cl_util=>msg_get_by_msg(
+DATA(ls_msg) = zabaputil_cl_util_context=>msg_get_by_msg(
     id = '00'
     no = '398'
     v1 = 'Hello'

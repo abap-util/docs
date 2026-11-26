@@ -4,33 +4,25 @@
 
 ## What's identical
 
-The full `zabaputil_cl_util` façade — strings, JSON, XML, RTTI, time, URL, filter, msg, http, log — is **available everywhere**. If a method is on the façade, you can call it from cloud and on-premise alike.
+The full `zabaputil_cl_util_context` façade — strings, JSON, XML, RTTI, time, URL, filter, msg, http, log — is **available everywhere**. If a method is on the façade, you can call it from cloud and on-premise alike.
 
 ## Where the implementation differs
 
-Some helpers need to call APIs that only exist in one world. For those cases the library ships two adapters with the same public signature:
-
-| Class | Used by | Implements |
-| --- | --- | --- |
-| `zabaputil_cl_util_api_c` | ABAP Cloud | UUIDs, BAL, Base64, XLSX, callstack, source… via released cloud APIs (`xco_*`, `cl_web_http_*`, `if_xco_*`) |
-| `zabaputil_cl_util_api_s` | Standard ABAP | Same methods via classic APIs (`cl_system_uuid`, `if_http_server`, `cl_bali_log`, …) |
-
-`zabaputil_cl_util_api` is a thin pass-through; the activation system selects the matching variant at deploy time.
+Some helpers need to call APIs that only exist in one world. There are no separate adapter classes for that: the methods themselves check `check_abap_cloud( )` and call the matching API dynamically — released cloud APIs (`xco_*`, `cl_web_http_*`, …) on ABAP Cloud, classic APIs (`cl_system_uuid`, function modules, …) on Standard ABAP — so the same source activates everywhere.
 
 ## Methods that intentionally differ in behavior
 
 | Method | Cloud | On-Premise |
 | --- | --- | --- |
-| `zabaputil_cl_util_http=>set_session_stateful` | No-op (feature not released) | Calls `set_session_stateful` on the HTTP server |
-| `zabaputil_cl_util_http=>get_response_cookie` / `delete_response_cookie` | No-op (commented out) | Reads/deletes the cookie from the on-prem response object |
-| `zabaputil_cl_util_ext` (entire class) | Not available | Provides DDIC introspection (`DFIES`), search-help reads, transport handling |
+| `zabaputil_cl_util_http->set_session_stateful` | No-op (feature not released) | Calls `set_session_stateful` on the HTTP server |
+| `zabaputil_cl_util_http->get_response_cookie` / `delete_response_cookie` | No-op (no released counterpart) | Reads/deletes the cookie from the on-prem response object |
 
 If a feature only exists on one side, the documentation page for that feature calls it out explicitly.
 
 ## Detecting the environment at runtime
 
 ```abap
-IF zabaputil_cl_util=>context_check_abap_cloud( ) = abap_true.
+IF zabaputil_cl_util_context=>check_abap_cloud( ) = abap_true.
   " Running on ABAP Cloud
 ELSE.
   " Running on Standard ABAP
