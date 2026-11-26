@@ -9,7 +9,7 @@ TYPES: BEGIN OF ty_s_http_req,
          method   TYPE string,
          body     TYPE string,
          path     TYPE string,
-         t_params TYPE zabaputil_cl_util=>ty_t_name_value,
+         t_params TYPE zabaputil_cl_util_context=>ty_t_name_value,
        END OF ty_s_http_req.
 ```
 
@@ -91,7 +91,7 @@ CLASS zcl_my_http_service IMPLEMENTATION.
 
     " ... do work ...
 
-    lo_http->set_cdata( zabaputil_cl_util=>json_stringify( ls_result ) ).
+    lo_http->set_cdata( zabaputil_cl_util_context=>json_stringify( ls_result ) ).
     lo_http->set_header_field( n = 'Content-Type' v = 'application/json' ).
     lo_http->set_status( code = 200 reason = 'OK' ).
 

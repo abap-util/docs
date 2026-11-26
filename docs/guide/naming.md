@@ -13,9 +13,11 @@
 
 The `zabaputil_` prefix is reserved — never create your own objects under it.
 
+Every object name is at most **29 characters** long, so the library can be renamed to a customer name or namespace of up to 10 characters — see [Renaming](./renaming).
+
 ## Method Prefixes
 
-The façade `zabaputil_cl_util` groups helpers by topic. The prefix tells you what the method does without reading the body:
+The façade `zabaputil_cl_util_context` groups helpers by topic. The prefix tells you what the method does without reading the body:
 
 | Prefix | Meaning | Example |
 | --- | --- | --- |
@@ -36,6 +38,14 @@ The façade `zabaputil_cl_util` groups helpers by topic. The prefix tells you wh
 | `source_` | Source code introspection | `source_get_method` |
 | `app_` | App URL helpers | `app_get_url` |
 | `uuid_` | UUID generation | `uuid_get_c32` |
+| `barcode_gs1_` | GS1 barcodes | `barcode_gs1_parse` |
+| `parallel_` | Parallel processing | `parallel_run` |
+| `longtext_` | SAPscript long texts | `longtext_read` |
+| `rfc_` | RFC | `rfc_call_dynamic`, `rfc_ping` |
+| `mime_`, `spool_`, `form_` | MIME repository, spool, forms | `mime_read`, `spool_get_pdf` |
+| `variant_` | Report variants | `variant_list` |
+| `amc_` | ABAP Messaging Channels | `amc_send` |
+| `gos_` | Attachments (GOS) | `gos_attach` |
 
 ## Verb Conventions
 

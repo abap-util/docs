@@ -4,18 +4,26 @@
 
 ## What's identical
 
-The full `zabaputil_cl_util` façade — strings, JSON, XML, RTTI, time, URL, filter, msg, http, log — is **available everywhere**. If a method is on the façade, you can call it from cloud and on-premise alike.
+`zabaputil_cl_util_context` and the other classes compile on ABAP Cloud, Standard ABAP and NetWeaver 7.02 from one source — strings, JSON, XML, RTTI, time, URL, filters, messages, HTTP, logging, GS1 barcodes, parallel processing and most other helpers work the same everywhere.
 
 ## Where the implementation differs
 
-Some helpers need to call APIs that only exist in one world. For those cases the library ships two adapters with the same public signature:
+Some helpers need APIs that only exist in one world. Those methods branch at runtime with `check_abap_cloud( )` and reach the environment-specific API through a dynamic call, so the class still compiles everywhere — for example released cloud APIs (`xco_*`, `cl_web_http_*`) on ABAP Cloud and classic APIs (function modules, `cl_http_client`) on Standard ABAP.
 
-| Class | Used by | Implements |
-| --- | --- | --- |
-| `zabaputil_cl_util_api_c` | ABAP Cloud | UUIDs, BAL, Base64, XLSX, callstack, source… via released cloud APIs (`xco_*`, `cl_web_http_*`, `if_xco_*`) |
-| `zabaputil_cl_util_api_s` | Standard ABAP | Same methods via classic APIs (`cl_system_uuid`, `if_http_server`, `cl_bali_log`, …) |
+## Methods that need Standard ABAP
 
-`zabaputil_cl_util_api` is a thin pass-through; the activation system selects the matching variant at deploy time.
+These methods have no ABAP Cloud counterpart. They compile on ABAP Cloud, but raise `zabaputil_cx_util_error` when called there:
+
+| Area | Methods |
+| --- | --- |
+| [Long Texts](/api/longtext) | `longtext_read`, `longtext_save`, `longtext_delete` |
+| [RFC](/api/rfc) | `rfc_call_dynamic` |
+| [MIME, Spool & Forms](/api/mime) | `mime_read`, `mime_save`, `spool_get_pdf`, `form_get_pdf` |
+| [Report Variants](/api/variants) | `variant_list`, `variant_read` |
+| [ABAP Messaging Channels](/api/amc) | `amc_send` |
+| [Attachments (GOS)](/api/gos) | `gos_attach`, `gos_list`, `gos_read` |
+
+`rfc_ping` and `rfc_check_destination` work on both: on ABAP Cloud they take the name of a BTP destination. `parallel_run` uses `CL_ABAP_PARALLEL` where it exists and runs the tasks sequentially otherwise.
 
 ## Methods that intentionally differ in behavior
 
@@ -23,14 +31,13 @@ Some helpers need to call APIs that only exist in one world. For those cases the
 | --- | --- | --- |
 | `zabaputil_cl_util_http=>set_session_stateful` | No-op (feature not released) | Calls `set_session_stateful` on the HTTP server |
 | `zabaputil_cl_util_http=>get_response_cookie` / `delete_response_cookie` | No-op (commented out) | Reads/deletes the cookie from the on-prem response object |
-| `zabaputil_cl_util_ext` (entire class) | Not available | Provides DDIC introspection (`DFIES`), search-help reads, transport handling |
 
 If a feature only exists on one side, the documentation page for that feature calls it out explicitly.
 
 ## Detecting the environment at runtime
 
 ```abap
-IF zabaputil_cl_util=>context_check_abap_cloud( ) = abap_true.
+IF zabaputil_cl_util_context=>check_abap_cloud( ) = abap_true.
   " Running on ABAP Cloud
 ELSE.
   " Running on Standard ABAP

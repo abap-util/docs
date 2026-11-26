@@ -17,7 +17,7 @@ TYPES ty_t_name_value TYPE STANDARD TABLE OF ty_s_name_value WITH EMPTY KEY.
 Read a single query parameter from a URL.
 
 ```abap
-DATA(lv_id) = zabaputil_cl_util=>url_param_get(
+DATA(lv_id) = zabaputil_cl_util_context=>url_param_get(
     val = 'ID'
     url = '/sap/bc/http/myapp?ID=12345&MODE=edit' ). " => '12345'
 ```
@@ -27,7 +27,7 @@ DATA(lv_id) = zabaputil_cl_util=>url_param_get(
 Return the entire query string as a name/value table.
 
 ```abap
-DATA(lt_params) = zabaputil_cl_util=>url_param_get_tab( '/app?ID=1&MODE=edit' ).
+DATA(lt_params) = zabaputil_cl_util_context=>url_param_get_tab( '/app?ID=1&MODE=edit' ).
 " => [(n='ID' v='1'), (n='MODE' v='edit')]
 ```
 
@@ -36,7 +36,7 @@ DATA(lt_params) = zabaputil_cl_util=>url_param_get_tab( '/app?ID=1&MODE=edit' ).
 Build a URL-encoded query string from a `ty_t_name_value` table.
 
 ```abap
-DATA(lv_url) = zabaputil_cl_util=>url_param_create_url(
+DATA(lv_url) = zabaputil_cl_util_context=>url_param_create_url(
     t_params = VALUE #(
         ( n = 'ID'   v = '12345' )
         ( n = 'MODE' v = 'edit' ) ) ). " => 'ID=12345&MODE=edit'
@@ -47,7 +47,7 @@ DATA(lv_url) = zabaputil_cl_util=>url_param_create_url(
 Add or update one parameter in an existing URL.
 
 ```abap
-DATA(lv_new) = zabaputil_cl_util=>url_param_set(
+DATA(lv_new) = zabaputil_cl_util_context=>url_param_set(
     url   = '/app?ID=1'
     name  = 'LANG'
     value = 'DE' ). " => '/app?ID=1&LANG=DE'

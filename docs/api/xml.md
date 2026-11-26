@@ -15,7 +15,7 @@
 Render any ABAP value into asXML (the native XSLT-based XML representation). Raises `cx_xslt_serialization_error` on failure.
 
 ```abap
-DATA(lv_xml) = zabaputil_cl_util=>xml_stringify( ls_data ).
+DATA(lv_xml) = zabaputil_cl_util_context=>xml_stringify( ls_data ).
 ```
 
 ## `xml_parse`
@@ -23,7 +23,7 @@ DATA(lv_xml) = zabaputil_cl_util=>xml_stringify( ls_data ).
 Inverse of `xml_stringify`. The target value type drives the deserialization.
 
 ```abap
-zabaputil_cl_util=>xml_parse(
+zabaputil_cl_util_context=>xml_parse(
     xml = lv_xml
     any = ls_data ).
 ```
@@ -33,7 +33,7 @@ zabaputil_cl_util=>xml_parse(
 Serialize **value + type information** in one go. Use this when the receiver does not know the target type at compile time (e.g. the [Persistence](./persistence) service uses it).
 
 ```abap
-DATA(lv_blob) = zabaputil_cl_util=>xml_srtti_stringify( data = ls_data ).
+DATA(lv_blob) = zabaputil_cl_util_context=>xml_srtti_stringify( data = ls_data ).
 ```
 
 ## `xml_srtti_parse`
@@ -41,7 +41,7 @@ DATA(lv_blob) = zabaputil_cl_util=>xml_srtti_stringify( data = ls_data ).
 Inverse of `xml_srtti_stringify`. Returns a freshly created `REF TO data` whose runtime type matches the original.
 
 ```abap
-DATA(lr_data) = zabaputil_cl_util=>xml_srtti_parse( rtti_data = lv_blob ).
+DATA(lr_data) = zabaputil_cl_util_context=>xml_srtti_parse( rtti_data = lv_blob ).
 ASSIGN lr_data->* TO FIELD-SYMBOL(<data>).
 ```
 

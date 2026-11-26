@@ -20,7 +20,7 @@ features:
   - title: One API, Three Worlds
     details: Write the same code for ABAP Cloud (BTP / S/4 Public Cloud), Standard ABAP and NetWeaver 7.02. The library hides the language and API differences.
   - title: Class-Based, No Function Modules
-    details: Static helpers grouped under a single facade class — no global function modules to remember, just <code>zabaputil_cl_util=>...</code>.
+    details: Static helpers grouped under a single facade class — no global function modules to remember, just <code>zabaputil_cl_util_context=>...</code>.
   - title: JSON, XML, CSV, XLSX
     details: Stringify and parse data in all common formats with a single line. Built on top of <a href="https://github.com/sbcgua/ajson">ajson</a> and <a href="https://github.com/sandraros/S-RTTI">S-RTTI</a>.
   - title: Runtime Reflection (RTTI)

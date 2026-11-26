@@ -7,7 +7,7 @@ The JSON helpers wrap the bundled [ajson](https://github.com/sbcgua/ajson) libra
 Serialize any ABAP value (structure, table, ref, …) to a JSON string.
 
 ```abap
-DATA(lv_json) = zabaputil_cl_util=>json_stringify( ls_flight ).
+DATA(lv_json) = zabaputil_cl_util_context=>json_stringify( ls_flight ).
 " => '{"CARRID":"LH","CONNID":"0400","FLDATE":"2025-01-15"}'
 ```
 
@@ -19,7 +19,7 @@ Deserialize a JSON string into a typed ABAP value passed by `CHANGING`.
 
 ```abap
 DATA ls_flight TYPE sflight.
-zabaputil_cl_util=>json_parse(
+zabaputil_cl_util_context=>json_parse(
     val  = '{"CARRID":"LH","CONNID":"0400"}'
     data = ls_flight ).
 ```
@@ -45,5 +45,5 @@ You can pass the filter into ajson directly when you need the leaner output for 
 Convert any ABAP boolean-ish value to a JSON literal. Useful when you build JSON manually:
 
 ```abap
-DATA(lv) = zabaputil_cl_util=>boolean_abap_2_json( abap_true ). " => 'true'
+DATA(lv) = zabaputil_cl_util_context=>boolean_abap_2_json( abap_true ). " => 'true'
 ```

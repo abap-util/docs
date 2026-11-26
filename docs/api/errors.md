@@ -36,7 +36,7 @@ Raise the exception if `when = abap_true`. Replaces the recurring `IF sy-subrc <
 
 ```abap
 SELECT SINGLE * FROM scarr WHERE carrid = @lv_id INTO @DATA(ls).
-zabaputil_cl_util=>x_check_raise( when = xsdbool( sy-subrc <> 0 ) ).
+zabaputil_cl_util_context=>x_check_raise( when = xsdbool( sy-subrc <> 0 ) ).
 ```
 
 The optional `v` parameter overrides the exception class name (defaults to `'CX_SY_SUBRC'`).
@@ -46,7 +46,7 @@ The optional `v` parameter overrides the exception class name (defaults to `'CX_
 Raise unconditionally with a free-text message.
 
 ```abap
-zabaputil_cl_util=>x_raise( 'Something went wrong' ).
+zabaputil_cl_util_context=>x_raise( 'Something went wrong' ).
 ```
 
 ## `x_get_last_t100` {#x-get-last-t100}
@@ -57,6 +57,6 @@ Walks any `cx_root` chain and returns the most recent T100 message text. Useful 
 TRY.
     " ...
   CATCH cx_root INTO DATA(lx).
-    DATA(lv_text) = zabaputil_cl_util=>x_get_last_t100( lx ).
+    DATA(lv_text) = zabaputil_cl_util_context=>x_get_last_t100( lx ).
 ENDTRY.
 ```

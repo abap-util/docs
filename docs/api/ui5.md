@@ -19,7 +19,7 @@ CONSTANTS:
 Translate a single character (`'E'`, `'S'`, `'W'`, `'I'`) into the matching UI5 enum value.
 
 ```abap
-DATA(lv) = zabaputil_cl_util=>ui5_get_msg_type( 'E' ). " => 'Error'
+DATA(lv) = zabaputil_cl_util_context=>ui5_get_msg_type( 'E' ). " => 'Error'
 ```
 
 ## `ui5_msg_box_format`
@@ -37,7 +37,7 @@ TYPES: BEGIN OF ty_s_msg_box,
 ```
 
 ```abap
-DATA(ls_box) = zabaputil_cl_util=>ui5_msg_box_format( lx_error ).
+DATA(ls_box) = zabaputil_cl_util_context=>ui5_msg_box_format( lx_error ).
 ```
 
 The result is shaped to drop straight into a UI5 `MessageBox.show( ... )` call.

@@ -7,7 +7,7 @@ Authorization checks, number ranges, change documents, background jobs and e-mai
 Wraps `AUTHORITY-CHECK` in a single call. `activity` defaults to `'03'` (display).
 
 ```abap
-IF zabaputil_cl_util=>auth_check(
+IF zabaputil_cl_util_context=>auth_check(
      object   = `S_TCODE`
      field    = `TCD`
      value    = `SE38` ) = abap_false.
@@ -20,7 +20,7 @@ ENDIF.
 Draws the next number from a number range object (`subobject` defaults to `01`).
 
 ```abap
-DATA(lv_number) = zabaputil_cl_util=>numrange_get_next( object = `ZMY_NR` ).
+DATA(lv_number) = zabaputil_cl_util_context=>numrange_get_next( object = `ZMY_NR` ).
 ```
 
 ## `changdoc_read`
@@ -28,7 +28,7 @@ DATA(lv_number) = zabaputil_cl_util=>numrange_get_next( object = `ZMY_NR` ).
 Reads change documents (CDHDR/CDPOS) for an object class and ID, flattened to one row per changed field.
 
 ```abap
-DATA(lt_changes) = zabaputil_cl_util=>changdoc_read(
+DATA(lt_changes) = zabaputil_cl_util_context=>changdoc_read(
     objectclass = `ZMY_OBJECT`
     objectid    = lv_object_id
     date_from   = lv_since ).
@@ -40,7 +40,7 @@ DATA(lt_changes) = zabaputil_cl_util=>changdoc_read(
 Submits a report as a background job (`JOB_OPEN` / `JOB_SUBMIT` / `JOB_CLOSE`) and returns the job name.
 
 ```abap
-DATA(lv_job) = zabaputil_cl_util=>job_submit_report(
+DATA(lv_job) = zabaputil_cl_util_context=>job_submit_report(
     report  = `ZMY_REPORT`
     variant = `DEFAULT` ).
 ```
@@ -54,7 +54,7 @@ On ABAP Cloud this method raises `zabaputil_cx_util_error` — Application Jobs 
 Sends an e-mail via BCS — on ABAP Cloud through `CL_BCS_MAIL_MESSAGE`, on-premise through classic BCS. Set `html = abap_true` for an HTML body.
 
 ```abap
-zabaputil_cl_util=>mail_send(
+zabaputil_cl_util_context=>mail_send(
     to      = `mail@example.com`
     subject = `Import finished`
     body    = `<h1>Done!</h1>`

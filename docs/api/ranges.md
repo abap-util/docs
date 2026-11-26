@@ -44,7 +44,7 @@ Every operator has a single-line constructor that returns a `ty_s_range`:
 Each method accepts an optional `sign` (defaults to `I`).
 
 ```abap
-DATA(lt_range) = VALUE zabaputil_cl_util=>ty_t_range(
+DATA(lt_range) = VALUE zabaputil_cl_util_context=>ty_t_range(
   ( zabaputil_cl_util_range=>eq( 'LH' ) )
   ( zabaputil_cl_util_range=>bt( low = '0001' high = '9999' ) )
   ( zabaputil_cl_util_range=>cp( 'AB*' ) ) ).

@@ -9,7 +9,7 @@ A high-level wrapper around `cl_abap_typedescr`, `cl_abap_structdescr` and frien
 Returns the absolute type name of any value (e.g. `'SFLIGHT'`, `'STRING'`).
 
 ```abap
-DATA(lv_type) = zabaputil_cl_util=>rtti_get_type_name( ls_flight ). " => 'SFLIGHT'
+DATA(lv_type) = zabaputil_cl_util_context=>rtti_get_type_name( ls_flight ). " => 'SFLIGHT'
 ```
 
 ### `rtti_get_type_kind`
@@ -17,13 +17,13 @@ DATA(lv_type) = zabaputil_cl_util=>rtti_get_type_name( ls_flight ). " => 'SFLIGH
 Returns the type kind constant (`cl_abap_datadescr=>typekind_*`).
 
 ```abap
-DATA(lv_kind) = zabaputil_cl_util=>rtti_get_type_kind( ls_data ).
+DATA(lv_kind) = zabaputil_cl_util_context=>rtti_get_type_kind( ls_data ).
 ```
 
 ### `rtti_check_class_exists`
 
 ```abap
-IF zabaputil_cl_util=>rtti_check_class_exists( 'ZCL_FOO' ) = abap_true.
+IF zabaputil_cl_util_context=>rtti_check_class_exists( 'ZCL_FOO' ) = abap_true.
   " ...
 ENDIF.
 ```
@@ -33,7 +33,7 @@ ENDIF.
 Booleans for the typical "what is this value?" questions.
 
 ```abap
-IF zabaputil_cl_util=>rtti_check_table( val ) = abap_true.
+IF zabaputil_cl_util_context=>rtti_check_table( val ) = abap_true.
   " ...
 ENDIF.
 ```
@@ -53,7 +53,7 @@ Returns `abap_true` if the object implements `if_serializable_object`.
 Return the components of any structure value as a `cl_abap_structdescr=>component_table`.
 
 ```abap
-DATA(lt_comp) = zabaputil_cl_util=>rtti_get_t_attri_by_any( ls_flight ).
+DATA(lt_comp) = zabaputil_cl_util_context=>rtti_get_t_attri_by_any( ls_flight ).
 ```
 
 ### `rtti_get_t_attri_by_table_name`
@@ -61,7 +61,7 @@ DATA(lt_comp) = zabaputil_cl_util=>rtti_get_t_attri_by_any( ls_flight ).
 Same, but starting from a DDIC table or structure name.
 
 ```abap
-DATA(lt_comp) = zabaputil_cl_util=>rtti_get_t_attri_by_table_name( 'SFLIGHT' ).
+DATA(lt_comp) = zabaputil_cl_util_context=>rtti_get_t_attri_by_table_name( 'SFLIGHT' ).
 ```
 
 ### `rtti_get_t_attri_by_oref`
@@ -79,7 +79,7 @@ Expand the components of a deeply nested type, flattening included structures.
 Create a typed internal table whose row type comes from a DDIC name.
 
 ```abap
-DATA(lr_tab) = zabaputil_cl_util=>rtti_create_tab_by_name( 'SFLIGHT' ).
+DATA(lr_tab) = zabaputil_cl_util_context=>rtti_create_tab_by_name( 'SFLIGHT' ).
 ASSIGN lr_tab->* TO FIELD-SYMBOL(<lt>).
 ```
 
@@ -104,7 +104,7 @@ Returns the interface name an object reference is currently typed against.
 Returns the *long* text of a data element.
 
 ```abap
-DATA(lv_label) = zabaputil_cl_util=>rtti_get_data_element_text_l( 'CARRID' ).
+DATA(lv_label) = zabaputil_cl_util_context=>rtti_get_data_element_text_l( 'CARRID' ).
 ```
 
 ### `rtti_get_t_ddic_fixed_values`
@@ -112,7 +112,7 @@ DATA(lv_label) = zabaputil_cl_util=>rtti_get_data_element_text_l( 'CARRID' ).
 Return the DDIC fixed values of a domain or data element with descriptions in the requested language.
 
 ```abap
-DATA(lt_fix) = zabaputil_cl_util=>rtti_get_t_ddic_fixed_values(
+DATA(lt_fix) = zabaputil_cl_util_context=>rtti_get_t_ddic_fixed_values(
     rollname = 'MSGTY'
     langu    = 'E' ).
 ```

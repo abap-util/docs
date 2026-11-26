@@ -47,6 +47,7 @@ export default defineConfig({
           items: [
             { text: 'Class Overview', link: '/guide/classes' },
             { text: 'Naming Conventions', link: '/guide/naming' },
+            { text: 'Renaming', link: '/guide/renaming' },
             { text: 'Error Handling', link: '/guide/error-handling' },
             { text: 'Cloud vs. On-Premise', link: '/guide/cloud-vs-onprem' }
           ]
@@ -143,7 +144,21 @@ export default defineConfig({
           items: [
             { text: 'Locks (Enqueue)', link: '/api/locks' },
             { text: 'Transport Requests', link: '/api/transport' },
-            { text: 'System Utilities', link: '/api/system' }
+            { text: 'System Utilities', link: '/api/system' },
+            { text: 'Parallel Processing', link: '/api/parallel' },
+            { text: 'RFC', link: '/api/rfc' }
+          ]
+        },
+        {
+          text: 'Business Objects & Output',
+          collapsed: false,
+          items: [
+            { text: 'Barcodes (GS1)', link: '/api/barcodes' },
+            { text: 'Long Texts (SAPscript)', link: '/api/longtext' },
+            { text: 'MIME, Spool & Forms', link: '/api/mime' },
+            { text: 'Report Variants', link: '/api/variants' },
+            { text: 'ABAP Messaging Channels', link: '/api/amc' },
+            { text: 'Attachments (GOS)', link: '/api/gos' }
           ]
         }
       ]
