@@ -30,7 +30,7 @@ Please open an issue at the [main repository](https://github.com/abap-util/abap-
 
 - Add helpers to `zabaputil_cl_util_context` whenever they fit the existing prefix groups (`c_`, `rtti_`, `time_`, …).
 - Cover every new helper with an ABAP Unit test in the corresponding `*.testclasses.abap` file.
-- Avoid release-specific syntax in the façade. If a helper needs a cloud-only or on-prem-only API, put the implementation into `zabaputil_cl_util_api_c` / `_api_s` and call it through `zabaputil_cl_util_api`.
+- Avoid release-specific syntax in the façade. If a helper needs a cloud-only or on-prem-only API, branch on `check_abap_cloud( )` and call the API dynamically, so the class still compiles on every release.
 - Run `abaplint` locally before committing — the CI will reject lint failures.
 
 ## Pull Requests

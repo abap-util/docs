@@ -15,6 +15,7 @@ TYPES: BEGIN OF ty_s_msg,
          v3         TYPE string,
          v4         TYPE string,
          timestampl TYPE timestampl,
+         t_meta     TYPE ty_t_name_value,
        END OF ty_s_msg,
        ty_t_msg TYPE STANDARD TABLE OF ty_s_msg WITH EMPTY KEY.
 ```

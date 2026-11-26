@@ -6,18 +6,18 @@ A short reference of the public classes shipped by `abap-util` and what they are
 
 | Class | Kind | Description |
 | --- | --- | --- |
-| `zabaputil_cl_util_context` | Context class | All static helpers grouped by prefix (`json_`, `xml_`, `rtti_`, `c_`, `time_`, `url_param_`, `filter_`, `itab_`, `barcode_gs1_`, `rfc_`, …). Start here. |
+| `zabaputil_cl_util_context` | Context class | All static helpers grouped by prefix (`json_`, `xml_`, `rtti_`, `c_`, `time_`, `url_param_`, `filter_`, `itab_`, `barcode_gs1_`, `rfc_`, …). Release differences (ABAP Cloud vs. Standard ABAP) are handled inside the methods. Start here. |
 | `zabaputil_cl_util_db` | Service | Generic key/value persistence on top of `ZABAPUTIL_T_91`. |
 | `zabaputil_cl_util_log` | Service (instance) | Fluent log builder with CSV/XLSX/BAL export. |
-| `zabaputil_cl_util_http` | Service (instance) | HTTP handler abstraction for on-prem and ABAP Cloud. |
-| `zabaputil_cl_http` | Helper | HTTP request/response helper. |
+| `zabaputil_cl_util_http` | Service (instance) | HTTP handler abstraction for on-prem and ABAP Cloud, plus outbound HTTP client calls. |
 | `zabaputil_cl_util_msg` | Helpers | Extracts messages from structures, exceptions and BAL. |
-| `zabaputil_cl_util_range` | Builder (instance) | Builds SQL `WHERE` fragments from ABAP ranges and tokens. |
+| `zabaputil_cl_util_range` | Builder (instance) | Builds SQL `WHERE` fragments from ABAP ranges. |
 | `zabaputil_cl_util_xml` | Builder (instance) | Fluent XML builder. |
+| `zabaputil_cl_http` | Service (instance) | HTTP helper with the same handler/client methods (without `client_request` and `get_query`). Raises `zabaputil_cx_error`. |
 | `zabaputil_cx_util_error` | Exception | Single, predictable exception type used by the library. Inherits from `cx_no_check`. |
-| `zabaputil_cx_error` | Exception | No-check exception with the same structure as `zabaputil_cx_util_error`. |
+| `zabaputil_cx_error` | Exception | Same structure as `zabaputil_cx_util_error`, plus `get_text_own`, `get_text_own_by_x` and `get_text_full`. Inherits from `cx_no_check`. |
 
-ajson (`00/01/`) and S-RTTI (`00/02/`) are embedded under the `zabaputil_` prefix as well — see [Architecture](./architecture#bundled-dependencies).
+The bundled [ajson](https://github.com/sbcgua/ajson) (`zabaputil_cl_ajson`, `zabaputil_if_ajson`, …, subpackage `00/01/`) and [S-RTTI](https://github.com/sandraros/S-RTTI) (`zabaputil_cl_srt_*`, subpackage `00/02/`) classes are mirrored unchanged from upstream.
 
 ## Copies in other projects
 

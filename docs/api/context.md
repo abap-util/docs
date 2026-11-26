@@ -18,19 +18,19 @@ Returns the current tenant identifier (cloud) or client (on-prem).
 DATA(lv_tenant) = zabaputil_cl_util_context=>context_get_tenant( ).
 ```
 
-## `context_check_abap_cloud`
+## `check_abap_cloud`
 
 Returns `abap_true` when running inside an ABAP Cloud tenant.
 
 ```abap
-IF zabaputil_cl_util_context=>context_check_abap_cloud( ) = abap_true.
+IF zabaputil_cl_util_context=>check_abap_cloud( ) = abap_true.
   " ...
 ENDIF.
 ```
 
 ## `context_get_sy`
 
-Returns a typed snapshot of the current `SY` structure (`zabaputil_cl_util_api=>ty_syst`). Useful when you want to log or serialize the system context.
+Returns a typed snapshot of the current `SY` structure (`zabaputil_cl_util_context=>ty_syst`). Useful when you want to log or serialize the system context.
 
 ```abap
 DATA(ls_sy) = zabaputil_cl_util_context=>context_get_sy( ).
@@ -55,11 +55,11 @@ DATA(lt_stack) = zabaputil_cl_util_context=>context_get_callstack( ).
 
 ## BAL Helpers
 
-The façade also exposes two BAL convenience methods that are used by the [Logging](./logging) class. They live on `zabaputil_cl_util_api`:
+The [Logging](./logging) class persists and reloads its messages through two BAL methods of the context class:
 
 | Method | Purpose |
 | --- | --- |
-| `bal_save( object subobject id t_log )` | Persist a `ty_t_msg` to BAL |
+| `bal_create( object subobject id t_log )` | Persist a `ty_t_msg` to BAL |
 | `bal_read( object subobject id )` | Read a `ty_t_msg` from BAL |
 
-Use them via `zabaputil_cl_util_log` (recommended) or directly when you don't need an in-memory log instance.
+Use them via `zabaputil_cl_util_log` (recommended) or directly when you don't need an in-memory log instance. See [Application Log](./bal) for the query helpers.

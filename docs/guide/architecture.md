@@ -7,7 +7,7 @@
 ```
 src/
 ├── zabaputil_cl_util_context      ← the master utility class (static helpers)
-├── zabaputil_cl_util_http         ← HTTP handler abstraction
+├── zabaputil_cl_util_http         ← HTTP handler abstraction + HTTP client
 ├── zabaputil_cl_http              ← HTTP helper
 ├── zabaputil_cl_util_db           ← key/value persistence (table zabaputil_t_91)
 ├── zabaputil_cl_util_log          ← fluent log builder
@@ -17,8 +17,8 @@ src/
 ├── zabaputil_cx_util_error        ← exception raised by the library
 ├── zabaputil_cx_error             ← no-check exception
 └── 00/
-    ├── 01/                        ← embedded ajson
-    └── 02/                        ← embedded S-RTTI
+    ├── 01/                        ← embedded ajson (mirrored from upstream)
+    └── 02/                        ← embedded S-RTTI (mirrored from upstream)
 ```
 
 ## One Class, Three Targets

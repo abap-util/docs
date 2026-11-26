@@ -8,7 +8,7 @@
 
 ## Where the implementation differs
 
-Some helpers need APIs that only exist in one world. Those methods branch at runtime with `check_abap_cloud( )` and reach the environment-specific API through a dynamic call, so the class still compiles everywhere — for example released cloud APIs (`xco_*`, `cl_web_http_*`) on ABAP Cloud and classic APIs (function modules, `cl_http_client`) on Standard ABAP.
+Some helpers need APIs that only exist in one world. There are no separate adapter classes for that: those methods branch at runtime with `check_abap_cloud( )` and reach the environment-specific API through a dynamic call, so the class still compiles everywhere — for example released cloud APIs (`xco_*`, `cl_web_http_*`) on ABAP Cloud and classic APIs (function modules, `cl_http_client`) on Standard ABAP.
 
 ## Methods that need Standard ABAP
 
@@ -29,8 +29,8 @@ These methods have no ABAP Cloud counterpart. They compile on ABAP Cloud, but ra
 
 | Method | Cloud | On-Premise |
 | --- | --- | --- |
-| `zabaputil_cl_util_http=>set_session_stateful` | No-op (feature not released) | Calls `set_session_stateful` on the HTTP server |
-| `zabaputil_cl_util_http=>get_response_cookie` / `delete_response_cookie` | No-op (commented out) | Reads/deletes the cookie from the on-prem response object |
+| `zabaputil_cl_util_http->set_session_stateful` | No-op (feature not released) | Calls `set_session_stateful` on the HTTP server |
+| `zabaputil_cl_util_http->get_response_cookie` / `delete_response_cookie` | No-op (no released counterpart) | Reads/deletes the cookie from the on-prem response object |
 
 If a feature only exists on one side, the documentation page for that feature calls it out explicitly.
 

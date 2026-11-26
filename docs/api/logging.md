@@ -51,7 +51,7 @@ ENDTRY.
 | --- | --- |
 | `to_msg( )` | `ty_t_msg` table |
 | `to_csv( )` | CSV string |
-| `to_xlsx( )` | XLSX `xstring` |
+| `to_xlsx( )` | XLSX file as a hex `string` (the `xstring` of [`conv_get_xlsx_by_itab`](./xlsx), converted) |
 | `to_string( )` | One newline-separated string with `[type] text` lines |
 
 ## Persistence (BAL)
@@ -73,7 +73,7 @@ lo_log2->bal_read(
     id        = 'JOB_42' ).
 ```
 
-`bal_*` is implemented on top of [`zabaputil_cl_util_api=>bal_save`](./context) / `bal_read` so it works on cloud and on-prem.
+`bal_save` and `bal_read` are implemented on top of [`zabaputil_cl_util_context=>bal_create` / `bal_read`](./context#bal-helpers) so they work on cloud and on-prem.
 
 ## Clearing
 

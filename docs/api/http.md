@@ -10,6 +10,7 @@ TYPES: BEGIN OF ty_s_http_req,
          body     TYPE string,
          path     TYPE string,
          t_params TYPE zabaputil_cl_util_context=>ty_t_name_value,
+         query    TYPE string, " raw query string, see get_query( )
        END OF ty_s_http_req.
 ```
 
@@ -41,6 +42,7 @@ Pass the request and response objects you receive in `if_http_service_extension~
 | `get_method( )` | `'GET' / 'POST' / ...` |
 | `get_cdata( )` | Request body as `string` |
 | `get_header_field( val )` | The named header value |
+| `get_query( )` | Raw query string of the request URI (not decoded) |
 
 ```abap
 DATA(ls_req) = lo_http->get_req_info( ).

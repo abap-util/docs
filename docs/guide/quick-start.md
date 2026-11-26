@@ -131,7 +131,7 @@ ENDTRY.
 
 ```abap
 DATA(lv_user)  = zabaputil_cl_util_context=>context_get_user_tech( ).      " => 'DEVELOPER'
-DATA(lv_cloud) = zabaputil_cl_util_context=>context_check_abap_cloud( ).   " => abap_true / abap_false
+DATA(lv_cloud) = zabaputil_cl_util_context=>check_abap_cloud( ).   " => abap_true / abap_false
 DATA(lt_stack) = zabaputil_cl_util_context=>context_get_callstack( ).
 ```
 
