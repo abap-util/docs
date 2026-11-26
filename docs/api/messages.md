@@ -65,6 +65,21 @@ Lower-level helpers used by the façade. Useful when you need to extract message
 | `msg_get( val )` | Recursive extractor (called by the façade `msg_get_t`) |
 | `msg_get_by_sy( )` | Build a `ty_t_msg` from the current `sy-msg*` fields |
 
+### Recognized component names
+
+`msg_map` maps a component of the input structure by its name. The following names are recognized, so the common SAP message structures (`BAPIRET2`, `BAPIRETURN`, `SYST`, `BALM`, `MESG`, …) work without any mapping:
+
+| `ty_s_msg` field | Component names |
+| --- | --- |
+| `id` | `ID`, `MSGID`, `ARBGB` |
+| `no` | `NO`, `NUMBER`, `MSGNO`, `TXTNR` |
+| `text` | `MESSAGE`, `TEXT` |
+| `type` | `TYPE`, `MSGTY`, `M_SEVERITY` |
+| `v1` … `v4` | `MESSAGE_V1` … `MESSAGE_V4`, `MSGV1` … `MSGV4`, `V1` … `V4` |
+| `timestampl` | `TIME_STMP` |
+
+`ARBGB` and `TXTNR` are the message class and number of the `MESG` tables (e.g. the message log of `MESSAGES_GIVE`), so such a table can be passed to `msg_get_t` as-is.
+
 ## See also
 
 - [Logging](./logging) — collect messages over time

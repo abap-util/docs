@@ -1,6 +1,6 @@
 # API Overview
 
-Pick a topic to drill into the API reference. Every helper listed here lives on the façade `zabaputil_cl_util_context` unless stated otherwise.
+Pick a topic to drill into the API reference. Every helper listed here lives on the context class `zabaputil_cl_util_context` unless stated otherwise.
 
 ## Strings & Conversion
 
@@ -56,3 +56,16 @@ Pick a topic to drill into the API reference. Every helper listed here lives on 
 - [Locks (Enqueue)](./locks) — set, check, release and inspect locks
 - [Transport Requests](./transport) — read, create and manage CTS requests
 - [System Utilities](./system) — authorization, number ranges, change documents, jobs, mail
+- [Parallel Processing](./parallel) — `parallel_run`, tasks via `CL_ABAP_PARALLEL`
+- [RFC](./rfc) — call function modules with JSON parameters, ping destinations
+
+## Business Objects & Output
+
+Pages marked *Standard ABAP* raise `zabaputil_cx_util_error` on ABAP Cloud.
+
+- [Barcodes (GS1)](./barcodes) — parse, build and check GS1-128, GS1 DataMatrix and GS1 QR codes
+- [Long Texts (SAPscript)](./longtext) — read, save and delete long texts as strings (*Standard ABAP*)
+- [MIME, Spool & Forms](./mime) — MIME repository, spool and Adobe forms as PDF (*Standard ABAP*)
+- [Report Variants](./variants) — list variants and read their values (*Standard ABAP*)
+- [ABAP Messaging Channels](./amc) — `amc_send` (*Standard ABAP*)
+- [Attachments (GOS)](./gos) — attach, list and read GOS attachments (*Standard ABAP*)

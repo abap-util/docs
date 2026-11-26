@@ -16,9 +16,7 @@
    ```
    https://github.com/abap-util/abap-util
    ```
-4. Pick the branch that fits your release:
-   - `main` — modern ABAP (Standard ABAP and ABAP Cloud)
-   - `702` — NetWeaver AS ABAP 7.02 / 7.31 / 7.40 with limited language scope
+4. Pick the branch that fits your system (see [Branches](#branches)).
 5. Choose a target package, e.g. `$Z_ABAP_UTIL` (local) or a transportable package of your choice.
 6. Pull the repository.
 
@@ -26,16 +24,26 @@ After the pull you should see the following top-level objects in your package:
 
 | Object | Type | Purpose |
 | --- | --- | --- |
-| `ZABAPUTIL_CL_UTIL_CONTEXT` | Class | Main façade |
-| `ZABAPUTIL_CL_UTIL_HTTP` | Class | HTTP handler abstraction |
+| `ZABAPUTIL_CL_UTIL_CONTEXT` | Class | Context class with all static helpers |
+| `ZABAPUTIL_CL_UTIL_HTTP` / `ZABAPUTIL_CL_HTTP` | Classes | HTTP handler abstraction and helper |
 | `ZABAPUTIL_CL_UTIL_DB` | Class | Key/value persistence |
 | `ZABAPUTIL_CL_UTIL_LOG` | Class | Fluent log builder |
 | `ZABAPUTIL_CL_UTIL_MSG` | Class | Message extractor |
 | `ZABAPUTIL_CL_UTIL_RANGE` | Class | Range/SQL builder |
 | `ZABAPUTIL_CL_UTIL_XML` | Class | XML builder |
-| `ZABAPUTIL_CL_HTTP` | Class | HTTP helper |
 | `ZABAPUTIL_CX_UTIL_ERROR` / `ZABAPUTIL_CX_ERROR` | Classes | Exceptions |
 | `ZABAPUTIL_T_91` | Table | Persistence table for [Persistence API](/api/persistence) |
+| `ZABAPUTIL_CL_AJSON*`, `ZABAPUTIL_CL_SRT_*` | Classes | Embedded ajson and S-RTTI (subpackages `00/01`, `00/02`) |
+
+## Branches {#branches}
+
+| Branch | For |
+| --- | --- |
+| `main` | NetWeaver 7.50 and higher, S/4HANA, ABAP Cloud |
+| `702` | NetWeaver 7.02 to 7.4x — downported from `main` automatically on every push |
+| `rename_<name>` | An installation under another name (e.g. `ZMYUTIL` or `/MYNS/`), built on request — see [Renaming](./renaming) |
+
+All branches carry the same methods; `702` is generated from `main` by the `auto_downport` workflow, so never change it directly.
 
 ## Install via abapGit (ABAP Cloud)
 
@@ -47,7 +55,7 @@ ABAP Cloud requires a slightly different flow:
 4. Choose an ABAP Cloud package (must be assigned to a software component).
 5. Pull.
 
-The same objects are deployed on ABAP Cloud; release differences are handled inside the methods. The `00/` subpackage holds the bundled ajson and S-RTTI classes.
+Methods that need Standard ABAP (long texts, MIME repository, spool, forms, variants, AMC, GOS, `rfc_call_dynamic`) compile on ABAP Cloud as well, but raise `zabaputil_cx_util_error` when called — see [Cloud vs. On-Premise](./cloud-vs-onprem).
 
 ## Verify the installation
 

@@ -4,11 +4,26 @@
 
 ## What's identical
 
-The full `zabaputil_cl_util_context` façade — strings, JSON, XML, RTTI, time, URL, filter, msg, http, log — is **available everywhere**. If a method is on the façade, you can call it from cloud and on-premise alike.
+`zabaputil_cl_util_context` and the other classes compile on ABAP Cloud, Standard ABAP and NetWeaver 7.02 from one source — strings, JSON, XML, RTTI, time, URL, filters, messages, HTTP, logging, GS1 barcodes, parallel processing and most other helpers work the same everywhere.
 
 ## Where the implementation differs
 
-Some helpers need to call APIs that only exist in one world. There are no separate adapter classes for that: the methods themselves check `check_abap_cloud( )` and call the matching API dynamically — released cloud APIs (`xco_*`, `cl_web_http_*`, …) on ABAP Cloud, classic APIs (`cl_system_uuid`, function modules, …) on Standard ABAP — so the same source activates everywhere.
+Some helpers need APIs that only exist in one world. There are no separate adapter classes for that: those methods branch at runtime with `check_abap_cloud( )` and reach the environment-specific API through a dynamic call, so the class still compiles everywhere — for example released cloud APIs (`xco_*`, `cl_web_http_*`) on ABAP Cloud and classic APIs (function modules, `cl_http_client`) on Standard ABAP.
+
+## Methods that need Standard ABAP
+
+These methods have no ABAP Cloud counterpart. They compile on ABAP Cloud, but raise `zabaputil_cx_util_error` when called there:
+
+| Area | Methods |
+| --- | --- |
+| [Long Texts](/api/longtext) | `longtext_read`, `longtext_save`, `longtext_delete` |
+| [RFC](/api/rfc) | `rfc_call_dynamic` |
+| [MIME, Spool & Forms](/api/mime) | `mime_read`, `mime_save`, `spool_get_pdf`, `form_get_pdf` |
+| [Report Variants](/api/variants) | `variant_list`, `variant_read` |
+| [ABAP Messaging Channels](/api/amc) | `amc_send` |
+| [Attachments (GOS)](/api/gos) | `gos_attach`, `gos_list`, `gos_read` |
+
+`rfc_ping` and `rfc_check_destination` work on both: on ABAP Cloud they take the name of a BTP destination. `parallel_run` uses `CL_ABAP_PARALLEL` where it exists and runs the tasks sequentially otherwise.
 
 ## Methods that intentionally differ in behavior
 

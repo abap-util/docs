@@ -6,7 +6,7 @@ A short reference of the public classes shipped by `abap-util` and what they are
 
 | Class | Kind | Description |
 | --- | --- | --- |
-| `zabaputil_cl_util_context` | Façade | Static helpers grouped by prefix (`json_`, `xml_`, `rtti_`, `c_`, `time_`, `url_param_`, `filter_`, `itab_`, …). Release differences (ABAP Cloud vs. Standard ABAP) are handled inside the methods. Start here. |
+| `zabaputil_cl_util_context` | Context class | All static helpers grouped by prefix (`json_`, `xml_`, `rtti_`, `c_`, `time_`, `url_param_`, `filter_`, `itab_`, `barcode_gs1_`, `rfc_`, …). Release differences (ABAP Cloud vs. Standard ABAP) are handled inside the methods. Start here. |
 | `zabaputil_cl_util_db` | Service | Generic key/value persistence on top of `ZABAPUTIL_T_91`. |
 | `zabaputil_cl_util_log` | Service (instance) | Fluent log builder with CSV/XLSX/BAL export. |
 | `zabaputil_cl_util_http` | Service (instance) | HTTP handler abstraction for on-prem and ABAP Cloud, plus outbound HTTP client calls. |
@@ -17,7 +17,21 @@ A short reference of the public classes shipped by `abap-util` and what they are
 | `zabaputil_cx_util_error` | Exception | Single, predictable exception type used by the library. Inherits from `cx_no_check`. |
 | `zabaputil_cx_error` | Exception | Same structure as `zabaputil_cx_util_error`, plus `get_text_own`, `get_text_own_by_x` and `get_text_full`. Inherits from `cx_no_check`. |
 
-The bundled [ajson](https://github.com/sbcgua/ajson) (`zabaputil_cl_ajson`, `zabaputil_if_ajson`, …) and [S-RTTI](https://github.com/sandraros/S-RTTI) (`zabaputil_cl_srt_*`) classes are mirrored unchanged from upstream.
+The bundled [ajson](https://github.com/sbcgua/ajson) (`zabaputil_cl_ajson`, `zabaputil_if_ajson`, …, subpackage `00/01/`) and [S-RTTI](https://github.com/sandraros/S-RTTI) (`zabaputil_cl_srt_*`, subpackage `00/02/`) classes are mirrored unchanged from upstream.
+
+## Copies in other projects
+
+The classes are also used as **renamed copies** inside other projects — the context class trimmed to the methods each project needs. Each project renames them into its own namespace:
+
+| Project | Copies |
+| --- | --- |
+| [abap2UI5](https://github.com/abap2UI5/abap2UI5) | `z2ui5_cl_ui5_util_context`, `z2ui5_cl_ui5_util_http`, `z2ui5_cx_ui5_util_error` |
+| [popups](https://github.com/abap2UI5-addons/popups) | `z2ui5_cl_popup_context`, `z2ui5_cx_popup_error` |
+| [business-api](https://github.com/abap-util/business-api) | `zabaputil_cl_bus_util_context`, `zabaputil_cl_bus_util_msg`, `zabaputil_cx_bus_util_error` |
+
+business-api keeps the `zabaputil_` prefix and inserts `bus_`: `zabaputil_cl_util_context` becomes `zabaputil_cl_bus_util_context`, `zabaputil_cl_util_msg` becomes `zabaputil_cl_bus_util_msg`.
+
+See [Consumption Model](./architecture#consumption-model) for how the copies are kept in sync.
 
 ## Sub-API of the façade
 
@@ -50,6 +64,14 @@ The façade groups helpers by **prefix**. You will rarely need anything outside 
 | `lock_` | Enqueue locks | [Locks](/api/locks) |
 | `tr_` | Transport requests | [Transport Requests](/api/transport) |
 | `auth_`, `numrange_`, `changdoc_`, `job_`, `mail_` | System utilities | [System Utilities](/api/system) |
+| `barcode_gs1_` | GS1 barcodes | [Barcodes (GS1)](/api/barcodes) |
+| `parallel_` | Parallel processing | [Parallel Processing](/api/parallel) |
+| `longtext_` | SAPscript long texts | [Long Texts](/api/longtext) |
+| `rfc_` | RFC calls and destinations | [RFC](/api/rfc) |
+| `mime_`, `spool_`, `form_` | MIME repository, spool, Adobe forms | [MIME, Spool & Forms](/api/mime) |
+| `variant_` | Report variants | [Report Variants](/api/variants) |
+| `amc_` | ABAP Messaging Channels | [ABAP Messaging Channels](/api/amc) |
+| `gos_` | Attachments (Generic Object Services) | [Attachments (GOS)](/api/gos) |
 
 ## Conventions
 
