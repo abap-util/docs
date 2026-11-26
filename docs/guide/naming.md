@@ -15,7 +15,7 @@ The `zabaputil_` prefix is reserved — never create your own objects under it.
 
 ## Method Prefixes
 
-The façade `zabaputil_cl_util` groups helpers by topic. The prefix tells you what the method does without reading the body:
+The façade `zabaputil_cl_util_context` groups helpers by topic. The prefix tells you what the method does without reading the body:
 
 | Prefix | Meaning | Example |
 | --- | --- | --- |

@@ -12,9 +12,9 @@ Standard ABAP, ABAP for SAP Cloud Platform and ABAP Cloud each ship with a sligh
 
 ```abap
 " Same call on every supported release
-DATA(lv_user) = zabaputil_cl_util=>context_get_user_tech( ).
-DATA(lv_id)   = zabaputil_cl_util=>uuid_get_c32( ).
-DATA(lv_json) = zabaputil_cl_util=>json_stringify( ls_data ).
+DATA(lv_user) = zabaputil_cl_util_context=>context_get_user_tech( ).
+DATA(lv_id)   = zabaputil_cl_util_context=>uuid_get_c32( ).
+DATA(lv_json) = zabaputil_cl_util_context=>json_stringify( ls_data ).
 ```
 
 ## Key Features
@@ -26,7 +26,7 @@ DATA(lv_json) = zabaputil_cl_util=>json_stringify( ls_data ).
 
 ## Design Principles
 
-1. **One façade, many helpers.** Most users only need `zabaputil_cl_util` — every common helper is reachable from there as a static method.
+1. **One façade, many helpers.** Most users only need `zabaputil_cl_util_context` — every common helper is reachable from there as a static method.
 2. **Predictable naming.** Methods are grouped by prefix (`json_`, `xml_`, `rtti_`, `time_`, `c_`, `url_param_`, …) so you can discover the API with code completion.
 3. **No unchecked exceptions.** The custom exception class `zabaputil_cx_util_error` inherits from `cx_no_check`, so you opt into `TRY/CATCH` only where you actually need it.
 4. **Down-portable.** The 7.02 build is generated automatically from the same source — don't write 7.02-specific code yourself.

@@ -45,13 +45,13 @@ Replaces the recurring `IF sy-subrc <> 0. RAISE EXCEPTION ... ENDIF.` pattern:
 
 ```abap
 SELECT SINGLE * FROM scarr WHERE carrid = @lv_id INTO @DATA(ls_scarr).
-zabaputil_cl_util=>x_check_raise( when = xsdbool( sy-subrc <> 0 ) ).
+zabaputil_cl_util_context=>x_check_raise( when = xsdbool( sy-subrc <> 0 ) ).
 ```
 
 ### `x_raise`
 
 ```abap
-zabaputil_cl_util=>x_raise( 'Something went wrong' ).
+zabaputil_cl_util_context=>x_raise( 'Something went wrong' ).
 ```
 
 ### `x_get_last_t100`
@@ -62,7 +62,7 @@ Useful when your call stack is mixed with old-school `MESSAGE ... INTO sy-msg*` 
 TRY.
     " ...
   CATCH cx_root INTO DATA(lx).
-    DATA(lv_text) = zabaputil_cl_util=>x_get_last_t100( lx ).
+    DATA(lv_text) = zabaputil_cl_util_context=>x_get_last_t100( lx ).
     " => 'Order 12345 could not be saved'
 ENDTRY.
 ```
@@ -73,7 +73,7 @@ ENDTRY.
 TRY.
     DATA(lo_log) = NEW zabaputil_cl_util_log( ).
 
-    DATA(lv_json) = zabaputil_cl_util=>json_stringify( ls_data ).
+    DATA(lv_json) = zabaputil_cl_util_context=>json_stringify( ls_data ).
     " ... do work ...
 
   CATCH zabaputil_cx_util_error INTO DATA(lx).

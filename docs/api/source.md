@@ -7,7 +7,7 @@ Helpers for reading source code at runtime and for building stable URLs into hos
 Returns the source code of a class method as a `string_table`. Works on cloud and on-prem; on cloud it uses `xco_cp_abap`.
 
 ```abap
-DATA(lt_source) = zabaputil_cl_util=>source_get_method(
+DATA(lt_source) = zabaputil_cl_util_context=>source_get_method(
     iv_classname  = 'ZCL_FOO'
     iv_methodname = 'BAR' ).
 ```
@@ -17,7 +17,7 @@ DATA(lt_source) = zabaputil_cl_util=>source_get_method(
 Convenience wrapper around `source_get_method` that returns the source as a single `string`.
 
 ```abap
-DATA(lv_source) = zabaputil_cl_util=>source_get_method2(
+DATA(lv_source) = zabaputil_cl_util_context=>source_get_method2(
     iv_classname  = 'ZCL_FOO'
     iv_methodname = 'BAR' ).
 ```
@@ -27,7 +27,7 @@ DATA(lv_source) = zabaputil_cl_util=>source_get_method2(
 Renders a `string_table` of source lines into one downloadable string with proper line endings — meant to feed straight into a file/HTTP response.
 
 ```abap
-DATA(lv_file) = zabaputil_cl_util=>source_method_to_file( lt_source ).
+DATA(lv_file) = zabaputil_cl_util_context=>source_method_to_file( lt_source ).
 ```
 
 ## `source_get_file_types`
@@ -39,7 +39,7 @@ Returns the list of file types `abap-util` recognizes when handling source code 
 Build a complete URL into another ABAP-Cloud-hosted app, including HTTPS origin, path, query string and fragment.
 
 ```abap
-DATA(lv_url) = zabaputil_cl_util=>app_get_url(
+DATA(lv_url) = zabaputil_cl_util_context=>app_get_url(
     classname = 'ZCL_MY_APP'
     origin    = 'https://abap.example.com'
     pathname  = '/sap/bc/ui2/flp'
@@ -52,7 +52,7 @@ DATA(lv_url) = zabaputil_cl_util=>app_get_url(
 Build a deep link to the ADT-hosted source view of a class.
 
 ```abap
-DATA(lv_url) = zabaputil_cl_util=>app_get_url_source_code(
+DATA(lv_url) = zabaputil_cl_util_context=>app_get_url_source_code(
     classname = 'ZCL_MY_APP'
     origin    = 'https://abap.example.com' ).
 ```
