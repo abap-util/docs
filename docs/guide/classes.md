@@ -13,9 +13,7 @@ A short reference of the public classes shipped by `abap-util` and what they are
 | `zabaputil_cl_util_msg` | Helpers | Extracts messages from structures, exceptions and BAL. |
 | `zabaputil_cl_util_range` | Builder (instance) | Builds SQL `WHERE` fragments from ABAP ranges. |
 | `zabaputil_cl_util_xml` | Builder (instance) | Fluent XML builder. |
-| `zabaputil_cl_http` | Service (instance) | HTTP helper with the same handler/client methods (without `client_request` and `get_query`). Raises `zabaputil_cx_error`. |
-| `zabaputil_cx_util_error` | Exception | Single, predictable exception type used by the library. Inherits from `cx_no_check`. |
-| `zabaputil_cx_error` | Exception | Same structure as `zabaputil_cx_util_error`, plus `get_text_own`, `get_text_own_by_x` and `get_text_full`. Inherits from `cx_no_check`. |
+| `zabaputil_cx_util_error` | Exception | The only exception class of the library. Inherits from `cx_no_check`. `get_text( )` renders the whole `previous` chain, `get_text_own( )` and `get_text_own_by_x( )` one link of it, `get_text_full( )` the full diagnostic report — see [Errors](/api/errors). |
 
 The bundled [ajson](https://github.com/sbcgua/ajson) (`zabaputil_cl_ajson`, `zabaputil_if_ajson`, …, subpackage `00/01/`) and [S-RTTI](https://github.com/sandraros/S-RTTI) (`zabaputil_cl_srt_*`, subpackage `00/02/`) classes are mirrored unchanged from upstream.
 
@@ -27,9 +25,9 @@ The classes are also used as **renamed copies** inside other projects — the co
 | --- | --- |
 | [abap2UI5](https://github.com/abap2UI5/abap2UI5) | `z2ui5_cl_ui5_util_context`, `z2ui5_cl_ui5_util_http`, `z2ui5_cx_ui5_util_error` |
 | [popups](https://github.com/abap2UI5-addons/popups) | `z2ui5_cl_popup_context`, `z2ui5_cx_popup_error` |
-| [business-api](https://github.com/abap-util/business-api) | `zabaputil_cl_bus_util_context`, `zabaputil_cl_bus_util_msg`, `zabaputil_cx_bus_util_error` |
+| [business-api](https://github.com/abap-util/business-api) | `zabaputil_cl_bus_util_context`, `zabaputil_cx_bus_util_error` |
 
-business-api keeps the `zabaputil_` prefix and inserts `bus_`: `zabaputil_cl_util_context` becomes `zabaputil_cl_bus_util_context`, `zabaputil_cl_util_msg` becomes `zabaputil_cl_bus_util_msg`.
+business-api keeps the `zabaputil_` prefix and inserts `bus_`: `zabaputil_cl_util_context` becomes `zabaputil_cl_bus_util_context`, `zabaputil_cx_util_error` becomes `zabaputil_cx_bus_util_error` — see [business-api](./business-api).
 
 See [Consumption Model](./architecture#consumption-model) for how the copies are kept in sync.
 

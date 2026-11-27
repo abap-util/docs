@@ -1,6 +1,6 @@
 # Errors & Exceptions
 
-`abap-util` exposes a single exception class plus three convenience helpers. See [Error Handling](/guide/error-handling) for the design rationale.
+`abap-util` has exactly one exception class, plus three convenience helpers on the context class. See [Error Handling](/guide/error-handling) for the design rationale.
 
 ## `zabaputil_cx_util_error`
 
@@ -9,7 +9,7 @@ Inherits from `cx_no_check`, so you don't need a `RAISING` clause and can ignore
 | Member | Meaning |
 | --- | --- |
 | `ms_error-x_root` | Wrapped `cx_root` exception (if any) |
-| `ms_error-uuid` | A 32-char UUID, useful for log correlation |
+| `ms_error-uuid` | A 32-char UUID for log correlation. Filled lazily — only when `get_text_full( )` renders the exception, not in the constructor |
 | `ms_error-text` | Free-text message (if no exception was wrapped) |
 
 The constructor accepts either a free-text message **or** a wrapped exception:
@@ -28,7 +28,32 @@ TRY.
 ENDTRY.
 ```
 
-`get_text( )` walks the entire `previous` chain and concatenates the messages with newlines.
+If `val` is itself an exception reference and no `previous` is given, it becomes the `previous`, so the cause chain is kept either way.
+
+### Reading the text
+
+| Method | Kind | Returns |
+| --- | --- | --- |
+| `get_text( )` (`if_message~get_text`) | instance | The own text followed by the texts of the whole `previous` chain, one per line. A text that only repeats the one before it is printed once. Never empty — `UNKNOWN_ERROR` if nothing carries a text |
+| `get_text_own( )` | instance | The text this exception carries itself, **without** the `previous` chain |
+| `get_text_own_by_x( val )` | static | The same for any `cx_root`: the own text of a `zabaputil_cx_util_error`, the plain `get_text( )` of every other exception class |
+| `get_text_full( val )` | static | The full diagnostic report of any `cx_root` — see below |
+
+```abap
+TRY.
+    " ...
+  CATCH cx_root INTO DATA(lx).
+    DATA(lv_report) = zabaputil_cx_util_error=>get_text_full( lx ).
+ENDTRY.
+```
+
+`get_text_full( )` returns three sections, each introduced by a header line:
+
+- `--- error ---` — the concise message chain, as `get_text( )` renders it;
+- `--- exception chain ---` — one block per link of the `previous` chain: the exception class, its own text, the source position it was raised at, the kernel error id, the uuid (for exceptions of this class) and every public attribute that carries a value;
+- `--- context ---` — system id, release, date and time. Host, client and user are deliberately left out, because consumers show this text to end users (for example as the body of an HTTP 500).
+
+Chain walks stop after 20 links, so a chain that points back into itself cannot loop.
 
 ## `x_check_raise` {#x-check-raise}
 
@@ -39,7 +64,7 @@ SELECT SINGLE * FROM scarr WHERE carrid = @lv_id INTO @DATA(ls).
 zabaputil_cl_util_context=>x_check_raise( when = xsdbool( sy-subrc <> 0 ) ).
 ```
 
-The optional `v` parameter overrides the exception class name (defaults to `'CX_SY_SUBRC'`).
+The optional `v` parameter is the message text of the exception (defaults to `CX_SY_SUBRC`).
 
 ## `x_raise` {#x-raise}
 

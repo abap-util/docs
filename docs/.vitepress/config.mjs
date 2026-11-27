@@ -9,7 +9,8 @@ export default defineConfig({
   cleanUrls: true,
 
   head: [
-    ['link', { rel: 'icon', href: '/favicon.ico' }],
+    // head entries are not rewritten by VitePress - the base goes in by hand
+    ['link', { rel: 'icon', type: 'image/png', href: '/docs/logo_util.png' }],
   ],
 
   themeConfig: {
@@ -50,6 +51,13 @@ export default defineConfig({
             { text: 'Renaming', link: '/guide/renaming' },
             { text: 'Error Handling', link: '/guide/error-handling' },
             { text: 'Cloud vs. On-Premise', link: '/guide/cloud-vs-onprem' }
+          ]
+        },
+        {
+          text: 'Related Projects',
+          collapsed: false,
+          items: [
+            { text: 'business-api', link: '/guide/business-api' }
           ]
         },
         {

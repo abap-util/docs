@@ -17,14 +17,21 @@ Please open an issue at the [main repository](https://github.com/abap-util/abap-
 2. Clone it into an SAP system via abapGit (see [Installation](./installation)).
 3. Install the npm tooling locally if you want to run the offline unit tests:
    ```bash
-   npm install
+   npm ci
    ```
-4. Useful scripts:
+4. The scripts:
    ```bash
-   npm run downport        # rewrite sources for the 702 branch
-   npm run auto_transpile  # transpile ABAP to JS via abaplint
-   npm run unit            # run unit tests in node
+   npm run lint            # abaplint, Standard ABAP (v750)
+   npm run lint:cloud      # abaplint, ABAP Cloud
+   npm run rename          # rename every object to the longest prefix allowed
+   npm run check           # lint, lint:cloud and rename
+   npm run auto_transpile  # transpile ABAP to JavaScript
+   npm run unit            # run the unit tests in Node.js
+   npm test                # check, auto_transpile and unit in one go
+   npm run downport        # rewrite src/ to 7.02 syntax - what auto_downport pushes to 702, never commit the result
+   npm run cleanup         # remove the abaplint output folder
    ```
+   CI runs the unit tests twice: on the `main` source and on the downported source.
 
 ## Coding Guidelines
 
