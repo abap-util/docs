@@ -25,13 +25,13 @@ After the pull you should see the following top-level objects in your package:
 | Object | Type | Purpose |
 | --- | --- | --- |
 | `ZABAPUTIL_CL_UTIL_CONTEXT` | Class | Context class with all static helpers |
-| `ZABAPUTIL_CL_UTIL_HTTP` / `ZABAPUTIL_CL_HTTP` | Classes | HTTP handler abstraction and helper |
+| `ZABAPUTIL_CL_UTIL_HTTP` | Class | HTTP handler abstraction and HTTP client |
 | `ZABAPUTIL_CL_UTIL_DB` | Class | Key/value persistence |
 | `ZABAPUTIL_CL_UTIL_LOG` | Class | Fluent log builder |
 | `ZABAPUTIL_CL_UTIL_MSG` | Class | Message extractor |
 | `ZABAPUTIL_CL_UTIL_RANGE` | Class | Range/SQL builder |
 | `ZABAPUTIL_CL_UTIL_XML` | Class | XML builder |
-| `ZABAPUTIL_CX_UTIL_ERROR` / `ZABAPUTIL_CX_ERROR` | Classes | Exceptions |
+| `ZABAPUTIL_CX_UTIL_ERROR` | Class | Exception |
 | `ZABAPUTIL_T_91` | Table | Persistence table for [Persistence API](/api/persistence) |
 | `ZABAPUTIL_CL_AJSON*`, `ZABAPUTIL_CL_SRT_*` | Classes | Embedded ajson and S-RTTI (subpackages `00/01`, `00/02`) |
 

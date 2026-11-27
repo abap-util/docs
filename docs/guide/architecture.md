@@ -8,14 +8,12 @@
 src/
 ├── zabaputil_cl_util_context      ← the master utility class (static helpers)
 ├── zabaputil_cl_util_http         ← HTTP handler abstraction + HTTP client
-├── zabaputil_cl_http              ← HTTP helper
 ├── zabaputil_cl_util_db           ← key/value persistence (table zabaputil_t_91)
 ├── zabaputil_cl_util_log          ← fluent log builder
 ├── zabaputil_cl_util_msg          ← message extractor
 ├── zabaputil_cl_util_range        ← range / SQL builder
 ├── zabaputil_cl_util_xml          ← fluent XML builder
-├── zabaputil_cx_util_error        ← exception raised by the library
-├── zabaputil_cx_error             ← no-check exception
+├── zabaputil_cx_util_error        ← the exception class of the library (no-check)
 └── 00/
     ├── 01/                        ← embedded ajson (mirrored from upstream)
     └── 02/                        ← embedded S-RTTI (mirrored from upstream)
@@ -54,7 +52,7 @@ abap-util is meant to be consumed **as a renamed copy, not as an installed depen
 | --- | --- | --- |
 | [abap2UI5](https://github.com/abap2UI5/abap2UI5) | `z2ui5_cl_ui5_util_context`, `z2ui5_cl_ui5_util_http`, `z2ui5_cx_ui5_util_error` (`src/00/03/`) | context class trimmed to the methods of the core framework, the other two as-is |
 | [popups](https://github.com/abap2UI5-addons/popups) | `z2ui5_cl_popup_context`, `z2ui5_cx_popup_error` (`src/00/`) | context class trimmed to the methods of the popup apps, the exception as-is |
-| [business-api](https://github.com/abap-util/business-api) | `zabaputil_cl_bus_util_context`, `zabaputil_cl_bus_util_msg`, `zabaputil_cx_bus_util_error` (`src/00/`) | context class trimmed to what the message class and the exception need, the other two as-is |
+| [business-api](https://github.com/abap-util/business-api) | `zabaputil_cl_bus_util_context`, `zabaputil_cx_bus_util_error` (`src/00/`) | context class trimmed to the `bapi_*` methods and `conv_alpha_in` with their helpers, the exception as-is |
 
 Every consumer installs with zero dependencies and keeps its own namespace — several projects, even on different versions, coexist in one system. abap-util stays the place where all methods converge, are unit-tested and are kept compatible with every release:
 
@@ -78,12 +76,16 @@ npm run downport        # rewrite src/ to 7.02 syntax - what auto_downport pushe
 npm run auto_transpile  # transpile to JavaScript
 npm run unit            # run the unit tests in Node.js
 npm run rename          # rename every object to the longest prefix allowed
+npm test                # lint, lint:cloud, rename, auto_transpile and unit in one go
 ```
+
+`node .github/scripts/sync-check.mjs --consumer <dir>` compares a consumer's renamed copies with their masters — which methods changed, which exist only in the copy. It is driven by the consumer's `.github/abap-util.json`.
 
 | Workflow | Runs on | Purpose |
 | --- | --- | --- |
-| `ABAP_STANDARD`, `ABAP_CLOUD`, `ABAP_702` | pull request | abaplint for each target |
-| `test_unit` | pull request | unit tests transpiled to JavaScript |
-| `test_rename` | pull request | every object still lints under a renamed prefix |
+| `ABAP_STANDARD`, `ABAP_CLOUD` | pull request, push to `main` | abaplint for Standard ABAP and ABAP Cloud |
+| `test_unit` | pull request, push to `main` | unit tests transpiled to JavaScript — on the `main` source and on the downported source |
+| `test_rename` | pull request, push to `main` | every object still lints under a renamed prefix |
 | `auto_downport` | push to `main` | pushes the 7.02 downport to the branch `702` |
+| `ABAP_702` | branch `702` | abaplint for the downported branch |
 | `build_rename` | manual | builds a renamed copy on the branch `rename_<name>` — see [Renaming](./renaming) |

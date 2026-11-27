@@ -14,7 +14,7 @@ CLASS zabaputil_cx_util_error DEFINITION
 Key properties:
 
 - **Inherits from `cx_no_check`** — you don't have to `RAISING` it in your method signatures, and you only `CATCH` it where you actually want to react.
-- Carries a **uuid** (`ms_error-uuid`) so you can correlate logs and stack traces.
+- Carries a **uuid** (`ms_error-uuid`) to correlate logs. It is filled lazily, when `get_text_full( )` renders the exception — a raise that is caught and handled pays nothing for it.
 - The constructor accepts either a free-text message or a wrapped previous exception:
 
   ```abap
@@ -29,7 +29,8 @@ Key properties:
   ENDTRY.
   ```
 
-- The redefined `if_message~get_text` method walks the entire `previous` chain and concatenates the messages with `cl_abap_char_utilities=>newline`, so `lx_error->get_text( )` always gives you the full story.
+- The redefined `if_message~get_text` method walks the entire `previous` chain and joins the messages with newlines, so `lx_error->get_text( )` always gives you the full story. `get_text_own( )` returns only the text of the exception itself, `get_text_own_by_x( )` does the same for any `cx_root`.
+- `zabaputil_cx_util_error=>get_text_full( lx )` renders the full diagnostic report of any exception — message chain, one block per link with class, source position and attributes, and the system context. See [Errors & Exceptions](/api/errors).
 
 ## Helpers on the façade
 

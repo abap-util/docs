@@ -7,9 +7,17 @@ Built with [VitePress](https://vitepress.dev/).
 ## Local development
 
 ```bash
-npm install
+npm ci
 npm run docs:dev      # http://localhost:5173
 ```
+
+## Check
+
+```bash
+npm run check         # every zabaputil_* name in the docs exists in the sources
+```
+
+The check clones [abap-util](https://github.com/abap-util/abap-util) and [business-api](https://github.com/abap-util/business-api) at `main` and compares every `zabaputil_*` name in `docs/` with their objects and methods. See [AGENTS.md](AGENTS.md) for the rules and the environment variables.
 
 ## Build
 
